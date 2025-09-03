@@ -60,15 +60,15 @@ const Hero = () => {
             className={`w-full h-full object-cover opacity-70 grayscale ${
               isMobile ? "object-right" : "object-center"
             }`}
-            poster="/lovable-uploads/4bfa0d71-3ed2-4693-90b6-35142468907f.png"
+            poster="/uploads/4bfa0d71-3ed2-4693-90b6-35142468907f.png"
           >
             <source
-              src="/lovable-uploads/video_1751292840840_1751292842546.mp4"
+              src="/uploads/video_1751292840840_1751292842546.mp4"
               type="video/mp4"
             />
             {/* Fallback image if video fails to load */}
             <img
-              src="/lovable-uploads/4bfa0d71-3ed2-4693-90b6-35142468907f.png"
+              src="/uploads/4bfa0d71-3ed2-4693-90b6-35142468907f.png"
               alt="CO Consultants Technologies Connected People"
               className={`w-full h-full object-cover opacity-70 grayscale ${
                 isMobile ? "object-right" : "object-center"

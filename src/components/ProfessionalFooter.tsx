@@ -1,4 +1,12 @@
-import { ArrowRight, Linkedin, Mail, Phone, MapPin, Clock, ChevronRight } from "lucide-react";
+import {
+  ArrowRight,
+  Linkedin,
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  ChevronRight,
+} from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -15,15 +23,15 @@ const ProfessionalFooter = () => {
     if (!email) return;
 
     setIsSubmitting(true);
-    
+
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     toast({
       title: "Success!",
       description: "Thank you for subscribing to our newsletter.",
     });
-    
+
     setEmail("");
     setIsSubmitting(false);
   };
@@ -35,8 +43,8 @@ const ProfessionalFooter = () => {
       transition: {
         staggerChildren: 0.1,
         delayChildren: 0.2,
-      }
-    }
+      },
+    },
   };
 
   const itemVariants = {
@@ -44,8 +52,8 @@ const ProfessionalFooter = () => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const quickLinks = [
@@ -54,16 +62,16 @@ const ProfessionalFooter = () => {
     { name: "Projects", href: "#projects" },
     { name: "Careers", href: "#careers" },
     { name: "Blog", href: "#blog" },
-    { name: "Contact", href: "#contact" }
+    { name: "Contact", href: "#contact" },
   ];
 
   const services = [
     "Real-Time Tracking",
-    "Smart Dashboards", 
+    "Smart Dashboards",
     "Productivity Analytics",
     "Project Management",
     "Consulting Services",
-    "Technical Support"
+    "Technical Support",
   ];
 
   return (
@@ -76,7 +84,7 @@ const ProfessionalFooter = () => {
 
       <div className="relative">
         {/* Newsletter Section */}
-        <motion.div 
+        <motion.div
           className="bg-primary/10 backdrop-blur-sm border-y border-primary/20 py-16"
           initial="hidden"
           whileInView="visible"
@@ -90,11 +98,12 @@ const ProfessionalFooter = () => {
                   Stay Updated with Construction Innovation
                 </h3>
                 <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                  Get the latest insights on construction technology, project management tips, and industry trends delivered to your inbox.
+                  Get the latest insights on construction technology, project
+                  management tips, and industry trends delivered to your inbox.
                 </p>
               </motion.div>
 
-              <motion.form 
+              <motion.form
                 onSubmit={handleNewsletterSubmit}
                 className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
                 variants={itemVariants}
@@ -121,7 +130,7 @@ const ProfessionalFooter = () => {
         </motion.div>
 
         {/* Main Footer Content */}
-        <motion.div 
+        <motion.div
           className="py-16"
           initial="hidden"
           whileInView="visible"
@@ -130,32 +139,34 @@ const ProfessionalFooter = () => {
         >
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-              
               {/* Company Info */}
               <motion.div className="lg:col-span-1" variants={itemVariants}>
                 <div className="mb-6">
-                  <img 
-                    src="/lovable-uploads/280712c4-e019-49c4-a570-ff9f00229887.png" 
-                    alt="CO Consultants" 
-                    className="h-12 w-auto mb-4" 
+                  <img
+                    src="/uploads/280712c4-e019-49c4-a570-ff9f00229887.png"
+                    alt="CO Consultants"
+                    className="h-12 w-auto mb-4"
                   />
-                  <h4 className="text-xl font-semibold mb-3">Construction Organised</h4>
+                  <h4 className="text-xl font-semibold mb-3">
+                    Construction Organised
+                  </h4>
                   <p className="text-gray-300 leading-relaxed">
-                    Pioneering smart construction solutions with real-time data insights, 
-                    advanced tracking systems, and predictive analytics.
+                    Pioneering smart construction solutions with real-time data
+                    insights, advanced tracking systems, and predictive
+                    analytics.
                   </p>
                 </div>
 
                 {/* Social Links */}
                 <div className="flex space-x-4">
-                  <a 
-                    href="#" 
+                  <a
+                    href="#"
                     className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center hover:bg-primary/30 transition-colors group"
                   >
                     <Linkedin className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                   </a>
-                  <a 
-                    href="#" 
+                  <a
+                    href="#"
                     className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center hover:bg-primary/30 transition-colors group"
                   >
                     <Mail className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
@@ -165,11 +176,13 @@ const ProfessionalFooter = () => {
 
               {/* Quick Links */}
               <motion.div variants={itemVariants}>
-                <h4 className="text-lg font-semibold mb-6 text-primary">Quick Links</h4>
+                <h4 className="text-lg font-semibold mb-6 text-primary">
+                  Quick Links
+                </h4>
                 <ul className="space-y-3">
                   {quickLinks.map((link, index) => (
                     <li key={index}>
-                      <a 
+                      <a
                         href={link.href}
                         className="text-gray-300 hover:text-primary transition-colors flex items-center group"
                       >
@@ -183,7 +196,9 @@ const ProfessionalFooter = () => {
 
               {/* Services */}
               <motion.div variants={itemVariants}>
-                <h4 className="text-lg font-semibold mb-6 text-primary">Our Services</h4>
+                <h4 className="text-lg font-semibold mb-6 text-primary">
+                  Our Services
+                </h4>
                 <ul className="space-y-3">
                   {services.map((service, index) => (
                     <li key={index} className="text-gray-300 flex items-center">
@@ -196,26 +211,36 @@ const ProfessionalFooter = () => {
 
               {/* Contact Info */}
               <motion.div variants={itemVariants}>
-                <h4 className="text-lg font-semibold mb-6 text-primary">Get in Touch</h4>
+                <h4 className="text-lg font-semibold mb-6 text-primary">
+                  Get in Touch
+                </h4>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
                     <div>
                       <p className="text-gray-300">123 Construction Ave</p>
-                      <p className="text-gray-300">Innovation District, ID 12345</p>
+                      <p className="text-gray-300">
+                        Innovation District, ID 12345
+                      </p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-3">
                     <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                    <a href="tel:+1234567890" className="text-gray-300 hover:text-primary transition-colors">
+                    <a
+                      href="tel:+1234567890"
+                      className="text-gray-300 hover:text-primary transition-colors"
+                    >
                       +1 (234) 567-890
                     </a>
                   </div>
-                  
+
                   <div className="flex items-center space-x-3">
                     <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                    <a href="mailto:info@coconsultants.com" className="text-gray-300 hover:text-primary transition-colors">
+                    <a
+                      href="mailto:info@coconsultants.com"
+                      className="text-gray-300 hover:text-primary transition-colors"
+                    >
                       info@coconsultants.com
                     </a>
                   </div>
@@ -223,7 +248,9 @@ const ProfessionalFooter = () => {
                   <div className="flex items-center space-x-3">
                     <Clock className="w-5 h-5 text-primary flex-shrink-0" />
                     <div>
-                      <p className="text-gray-300">Mon - Fri: 9:00 AM - 6:00 PM</p>
+                      <p className="text-gray-300">
+                        Mon - Fri: 9:00 AM - 6:00 PM
+                      </p>
                       <p className="text-gray-300">24/7 Emergency Support</p>
                     </div>
                   </div>
@@ -234,7 +261,7 @@ const ProfessionalFooter = () => {
         </motion.div>
 
         {/* Bottom Bar */}
-        <motion.div 
+        <motion.div
           className="border-t border-gray-700/50 py-8"
           initial="hidden"
           whileInView="visible"
@@ -247,9 +274,24 @@ const ProfessionalFooter = () => {
                 © 2024 Construction Organised. All rights reserved.
               </p>
               <div className="flex space-x-6 text-sm">
-                <a href="#" className="text-gray-400 hover:text-primary transition-colors">Privacy Policy</a>
-                <a href="#" className="text-gray-400 hover:text-primary transition-colors">Terms of Service</a>
-                <a href="#" className="text-gray-400 hover:text-primary transition-colors">Cookie Policy</a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-primary transition-colors"
+                >
+                  Privacy Policy
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-primary transition-colors"
+                >
+                  Terms of Service
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-primary transition-colors"
+                >
+                  Cookie Policy
+                </a>
               </div>
             </div>
           </div>

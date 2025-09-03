@@ -6,39 +6,44 @@ const ProjectsSection = () => {
   const projects = [
     {
       title: "FireCat Project",
-      description: "Fire safety and emergency response system with real-time monitoring and automated alerts for construction sites.",
-      image: "/lovable-uploads/4187f423-ba69-4043-be76-c43098488348.png",
+      description:
+        "Fire safety and emergency response system with real-time monitoring and automated alerts for construction sites.",
+      image: "/uploads/4187f423-ba69-4043-be76-c43098488348.png",
       tags: ["Safety", "Emergency Response", "Real-time"],
-      status: "Active"
+      status: "Active",
     },
     {
       title: "Sport Retail Analytics",
-      description: "Comprehensive retail analytics platform for sports equipment with inventory tracking and sales forecasting.",
-      image: "/lovable-uploads/48e540e5-6a25-44e4-b3f7-80f3bfc2777a.png",
+      description:
+        "Comprehensive retail analytics platform for sports equipment with inventory tracking and sales forecasting.",
+      image: "/uploads/48e540e5-6a25-44e4-b3f7-80f3bfc2777a.png",
       tags: ["Retail", "Analytics", "Forecasting"],
-      status: "Completed"
+      status: "Completed",
     },
     {
       title: "Workwear Solutions",
-      description: "Professional workwear management system with RFID tracking and compliance monitoring.",
-      image: "/lovable-uploads/cf8966e3-de0d-445f-9fbd-ee6c48daa7ff.png",
+      description:
+        "Professional workwear management system with RFID tracking and compliance monitoring.",
+      image: "/uploads/cf8966e3-de0d-445f-9fbd-ee6c48daa7ff.png",
       tags: ["RFID", "Compliance", "Management"],
-      status: "Active"
+      status: "Active",
     },
     {
       title: "Hockey Analytics",
-      description: "Advanced hockey analytics platform with player tracking and performance insights using machine learning.",
-      image: "/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png",
+      description:
+        "Advanced hockey analytics platform with player tracking and performance insights using machine learning.",
+      image: "/uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png",
       tags: ["Sports", "ML", "Tracking"],
-      status: "Development"
+      status: "Development",
     },
     {
       title: "Pet Tracker System",
-      description: "IoT-based pet tracking and monitoring system with GPS location and health metrics.",
-      image: "/lovable-uploads/39605e90-8478-4fee-b1b9-cee41df66f10.png",
+      description:
+        "IoT-based pet tracking and monitoring system with GPS location and health metrics.",
+      image: "/uploads/39605e90-8478-4fee-b1b9-cee41df66f10.png",
       tags: ["IoT", "GPS", "Health"],
-      status: "Completed"
-    }
+      status: "Completed",
+    },
   ];
 
   return (
@@ -52,7 +57,9 @@ const ProjectsSection = () => {
             Real Solutions for Real Challenges
           </h2>
           <p className="text-gray-700 text-xl max-w-3xl mx-auto leading-relaxed">
-            Explore our portfolio of successful construction data analytics implementations that have transformed operations and delivered measurable results.
+            Explore our portfolio of successful construction data analytics
+            implementations that have transformed operations and delivered
+            measurable results.
           </p>
         </div>
 
@@ -67,21 +74,29 @@ const ProjectsSection = () => {
             >
               <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border-primary/10">
                 <div className="relative">
-                  <img 
-                    src={project.image} 
+                  <img
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute top-4 right-4">
-                    <Badge 
-                      variant={project.status === 'Active' ? 'default' : project.status === 'Completed' ? 'secondary' : 'outline'}
-                      className={project.status === 'Active' ? 'bg-green-500' : ''}
+                    <Badge
+                      variant={
+                        project.status === "Active"
+                          ? "default"
+                          : project.status === "Completed"
+                          ? "secondary"
+                          : "outline"
+                      }
+                      className={
+                        project.status === "Active" ? "bg-green-500" : ""
+                      }
                     >
                       {project.status}
                     </Badge>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-6">
                   <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">
                     {project.title}
@@ -89,10 +104,14 @@ const ProjectsSection = () => {
                   <p className="text-gray-600 mb-4 line-clamp-3">
                     {project.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, tagIndex) => (
-                      <Badge key={tagIndex} variant="outline" className="text-xs">
+                      <Badge
+                        key={tagIndex}
+                        variant="outline"
+                        className="text-xs"
+                      >
                         {tag}
                       </Badge>
                     ))}

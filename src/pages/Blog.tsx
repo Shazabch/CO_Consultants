@@ -21,7 +21,7 @@ const Blog = () => {
         description="Stay updated with the latest news and insights about sensor-integrated textiles and smart technology from CO Consultants Technologies."
         imageUrl={
           featuredPost?.imageUrl ||
-          "/lovable-uploads/6b0637e9-4a7b-40d0-b219-c8b7f879f93e.png"
+          "/uploads/6b0637e9-4a7b-40d0-b219-c8b7f879f93e.png"
         }
         keywords={[
           "smart textiles",
@@ -98,7 +98,7 @@ const Blog = () => {
               excerpt={post.excerpt}
               imageUrl={
                 post.imageUrl ||
-                "/lovable-uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png"
+                "/uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png"
               }
               date={post.date}
               slug={post.slug}
@@ -116,8 +116,8 @@ const Blog = () => {
                   excerpt="Stay tuned for more exciting articles about smart textiles and sensor technology."
                   imageUrl={
                     index % 2 === 0
-                      ? "/lovable-uploads/6b0637e9-4a7b-40d0-b219-c8b7f879f93e.png"
-                      : "/lovable-uploads/700e27d7-0513-4bfa-8ac4-f7fd6087594c.png"
+                      ? "/uploads/6b0637e9-4a7b-40d0-b219-c8b7f879f93e.png"
+                      : "/uploads/700e27d7-0513-4bfa-8ac4-f7fd6087594c.png"
                   }
                   date="Coming soon"
                   slug="#"

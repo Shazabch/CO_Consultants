@@ -159,28 +159,28 @@ const About = () => {
                       role: "CEO and Founder",
                       bio: "Leading CO Consultants Technologies with a vision to transform the future of smart textiles.",
                       image:
-                        "/lovable-uploads/aa5291bd-2417-4c1e-9a02-0bcc71a92507.png",
+                        "/uploads/aa5291bd-2417-4c1e-9a02-0bcc71a92507.png",
                     },
                     {
                       name: "Niek Bijman",
                       role: "Software Lead",
                       bio: "Specializing in cloud infrastructure and APIs for seamless data integration.",
                       image:
-                        "/lovable-uploads/e502f601-c519-43a8-86f5-5fa89ae50d2f.png",
+                        "/uploads/e502f601-c519-43a8-86f5-5fa89ae50d2f.png",
                     },
                     {
                       name: "Chengjie Li",
                       role: "Hardware Lead",
                       bio: "Expert in embedded systems engineering, leading our hardware development efforts.",
                       image:
-                        "/lovable-uploads/3de85ddd-15e1-4216-9697-f91abb9a47ce.png",
+                        "/uploads/3de85ddd-15e1-4216-9697-f91abb9a47ce.png",
                     },
                     {
                       name: "Love",
                       role: "COO",
                       bio: "Overseeing daily operations and ensuring business objectives are met effectively.",
                       image:
-                        "/lovable-uploads/a9bb9110-964a-43b0-a5ab-7162140cd133.png",
+                        "/uploads/a9bb9110-964a-43b0-a5ab-7162140cd133.png",
                     },
                   ].map((member, i) => (
                     <Card

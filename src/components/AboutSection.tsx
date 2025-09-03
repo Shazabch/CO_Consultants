@@ -7,30 +7,34 @@ const AboutSection = () => {
     {
       icon: <Target className="w-8 h-8 text-primary" />,
       title: "Precision",
-      description: "We deliver accurate, real-time data insights that drive informed decision-making."
+      description:
+        "We deliver accurate, real-time data insights that drive informed decision-making.",
     },
     {
       icon: <Users className="w-8 h-8 text-primary" />,
       title: "Collaboration",
-      description: "Working closely with construction teams to understand their unique challenges."
+      description:
+        "Working closely with construction teams to understand their unique challenges.",
     },
     {
       icon: <Lightbulb className="w-8 h-8 text-primary" />,
       title: "Innovation",
-      description: "Pioneering new technologies to solve complex construction data problems."
+      description:
+        "Pioneering new technologies to solve complex construction data problems.",
     },
     {
       icon: <Award className="w-8 h-8 text-primary" />,
       title: "Excellence",
-      description: "Committed to delivering exceptional results that exceed expectations."
-    }
+      description:
+        "Committed to delivering exceptional results that exceed expectations.",
+    },
   ];
 
   const stats = [
     { number: "50+", label: "Projects Completed" },
     { number: "95%", label: "Client Satisfaction" },
     { number: "24/7", label: "Support Available" },
-    { number: "5+", label: "Years Experience" }
+    { number: "5+", label: "Years Experience" },
   ];
 
   return (
@@ -44,7 +48,9 @@ const AboutSection = () => {
             Transforming Construction Through Data
           </h2>
           <p className="text-gray-700 text-xl max-w-3xl mx-auto leading-relaxed">
-            CO Consultants specializes in construction data analytics, helping companies make smarter decisions through real-time insights and predictive analytics.
+            CO Consultants specializes in construction data analytics, helping
+            companies make smarter decisions through real-time insights and
+            predictive analytics.
           </p>
         </div>
 
@@ -58,13 +64,21 @@ const AboutSection = () => {
           >
             <h3 className="text-3xl font-bold mb-6 text-gray-900">Our Story</h3>
             <p className="text-gray-600 mb-4 leading-relaxed">
-              Founded with a mission to revolutionize the construction industry through data-driven insights, CO Consultants emerged from the recognition that construction projects were drowning in data but starving for actionable intelligence.
+              Founded with a mission to revolutionize the construction industry
+              through data-driven insights, CO Consultants emerged from the
+              recognition that construction projects were drowning in data but
+              starving for actionable intelligence.
             </p>
             <p className="text-gray-600 mb-4 leading-relaxed">
-              Our team combines deep construction industry expertise with cutting-edge technology to deliver solutions that actually work in the field. We understand the unique challenges of construction environments and design our systems accordingly.
+              Our team combines deep construction industry expertise with
+              cutting-edge technology to deliver solutions that actually work in
+              the field. We understand the unique challenges of construction
+              environments and design our systems accordingly.
             </p>
             <p className="text-gray-600 leading-relaxed">
-              Today, we're proud to partner with construction companies of all sizes, from local contractors to multinational firms, helping them optimize operations and deliver projects more efficiently.
+              Today, we're proud to partner with construction companies of all
+              sizes, from local contractors to multinational firms, helping them
+              optimize operations and deliver projects more efficiently.
             </p>
           </motion.div>
 
@@ -75,8 +89,8 @@ const AboutSection = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <img 
-              src="/lovable-uploads/11e92b89-ed02-453a-9888-56cd91807f2d.png" 
+            <img
+              src="/uploads/11e92b89-ed02-453a-9888-56cd91807f2d.png"
               alt="Construction team working with data analytics"
               className="rounded-lg shadow-xl"
             />
@@ -97,16 +111,16 @@ const AboutSection = () => {
               <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
                 {stat.number}
               </div>
-              <div className="text-gray-600 font-medium">
-                {stat.label}
-              </div>
+              <div className="text-gray-600 font-medium">{stat.label}</div>
             </motion.div>
           ))}
         </div>
 
         {/* Values */}
         <div>
-          <h3 className="text-3xl font-bold text-center mb-12 text-gray-900">Our Values</h3>
+          <h3 className="text-3xl font-bold text-center mb-12 text-gray-900">
+            Our Values
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <motion.div
