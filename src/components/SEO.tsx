@@ -37,7 +37,7 @@ const SEO: React.FC<SEOProps> = ({
   isBlogPost = false,
 }) => {
   const location = useLocation();
-  const currentUrl = `https://CO Consultants.com${location.pathname}`;
+  const currentUrl = `https://COConsultants.com${location.pathname}`;
   const absoluteImageUrl = imageUrl.startsWith("http")
     ? imageUrl
     : `https://CO Consultants.com${imageUrl}`;
@@ -81,13 +81,13 @@ const SEO: React.FC<SEOProps> = ({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "CO Consultants Technologies",
-    url: "https://CO Consultants.com",
-    logo: "https://CO Consultants.com/uploads/14ea3fe0-19d6-425c-b95b-4117bc41f3ca.png",
+    url: "https://COConsultants.com",
+    logo: "https://COConsultants.com/uploads/14ea3fe0-19d6-425c-b95b-4117bc41f3ca.png",
     description: "Pioneering smart engineering solutions with textile sensors",
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
-      email: "info@CO Consultants.com",
+      email: "info@COConsultants.com",
     },
     sameAs: [
       "https://www.linkedin.com/company/CO Consultants-technologies",
