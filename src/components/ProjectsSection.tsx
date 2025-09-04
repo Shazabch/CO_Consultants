@@ -3,48 +3,57 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const ProjectsSection = () => {
-  const projects = [
-    {
-      title: "FireCat Project",
-      description:
-        "Fire safety and emergency response system with real-time monitoring and automated alerts for construction sites.",
-      image: "/uploads/4187f423-ba69-4043-be76-c43098488348.png",
-      tags: ["Safety", "Emergency Response", "Real-time"],
-      status: "Active",
-    },
-    {
-      title: "Sport Retail Analytics",
-      description:
-        "Comprehensive retail analytics platform for sports equipment with inventory tracking and sales forecasting.",
-      image: "/uploads/48e540e5-6a25-44e4-b3f7-80f3bfc2777a.png",
-      tags: ["Retail", "Analytics", "Forecasting"],
-      status: "Completed",
-    },
-    {
-      title: "Workwear Solutions",
-      description:
-        "Professional workwear management system with RFID tracking and compliance monitoring.",
-      image: "/uploads/cf8966e3-de0d-445f-9fbd-ee6c48daa7ff.png",
-      tags: ["RFID", "Compliance", "Management"],
-      status: "Active",
-    },
-    {
-      title: "Hockey Analytics",
-      description:
-        "Advanced hockey analytics platform with player tracking and performance insights using machine learning.",
-      image: "/uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png",
-      tags: ["Sports", "ML", "Tracking"],
-      status: "Development",
-    },
-    {
-      title: "Pet Tracker System",
-      description:
-        "IoT-based pet tracking and monitoring system with GPS location and health metrics.",
-      image: "/uploads/39605e90-8478-4fee-b1b9-cee41df66f10.png",
-      tags: ["IoT", "GPS", "Health"],
-      status: "Completed",
-    },
-  ];
+const projects = [
+  {
+    title: "SecureDocs Cloud",
+    description:
+      "Cloud-based document storage with role-based access control and end-to-end encryption for enterprises.",
+    image: "https://plus.unsplash.com/premium_photo-1681399975135-252eab5fd2db?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8dGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D",
+    tags: ["Cloud", "Encryption", "Access Control"],
+    status: "Active",
+  },
+  {
+    title: "FileSync Pro",
+    description:
+      "Real-time file synchronization across devices with version history and smart conflict resolution.",
+    image: "https://plus.unsplash.com/premium_photo-1661963874418-df1110ee39c1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHRlY2hub2xvZ3l8ZW58MHx8MHx8fDA%3D",
+    tags: ["Sync", "Collaboration", "Versioning"],
+    status: "Completed",
+  },
+  {
+    title: "WorkDrive Compliance",
+    description:
+      "Enterprise-grade file compliance monitoring with automated retention policies and audit-ready reports.",
+    image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHRlY2hub2xvZ3l8ZW58MHx8MHx8fDA%3D",
+    tags: ["Compliance", "Monitoring", "Automation"],
+    status: "Active",
+  },
+  {
+    title: "CloudCollab Suite",
+    description:
+      "Collaboration platform with shared workspaces, document co-editing, and team communication tools.",
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRlY2hub2xvZ3l8ZW58MHx8MHx8fDA%3D",
+    tags: ["Collaboration", "Teams", "Productivity"],
+    status: "Development",
+  },
+  {
+    title: "TrackMyFiles",
+    description:
+      "File tracking and monitoring system with access logs, user analytics, and anomaly detection.",
+    image: "https://plus.unsplash.com/premium_photo-1683120972279-87efe2ba252f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHRlY2hub2xvZ3l8ZW58MHx8MHx8fDA%3D",
+    tags: ["Tracking", "Analytics", "Security"],
+    status: "Completed",
+  },
+  {
+    title: "CloudVault Backup",
+    description:
+      "Automated cloud backup solution with disaster recovery, multi-region replication, and instant restore options.",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHRlY2hub2xvZ3l8ZW58MHx8MHx8fDA%3D",
+    tags: ["Backup", "Recovery", "Cloud"],
+    status: "Active",
+  },
+];
+
 
   return (
     <section id="projects" className="bg-gray-50 py-20">

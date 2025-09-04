@@ -47,36 +47,46 @@ const Features = () => {
   const [currentSprint, setCurrentSprint] = useState(1);
   const totalSprints = 3;
   const isMobile = useIsMobile();
+const features = [
+  {
+    icon: (
+      <BarChart className="w-10 h-10 text-white transition-transform duration-300 transform" />
+    ),
+    title: "Construction Dashboard & Reporting",
+    description:
+      "Visualize manpower & progress trends, identify bottlenecks instantly, and track KPIs with precision.",
+    image: "/uploads/48e540e5-6a25-44e4-b3f7-80f3bfc2777a.png",
+  },
+  {
+    icon: (
+      <Activity className="w-10 h-10 text-white transition-transform duration-300 transform" />
+    ),
+    title: "RTLS & RFID Tracking Systems",
+    description:
+      "Bluetooth RTLS & RFID integration, QR-code access logs, and indoor/outdoor positioning.",
+    image: "/uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png",
+  },
+  {
+    icon: (
+      <Rocket className="w-10 h-10 text-white transition-transform duration-300 transform" />
+    ),
+    title: "Productivity Forecast & Proposal Support",
+    description:
+      "Predictive analytics, timeline estimation, and resource modeling for accurate project planning.",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D",
+  },
+  {
+    icon: (
+      <BarChart className="w-10 h-10 text-white transition-transform duration-300 transform" />
+    ),
+    title: "Smart Resource Allocation",
+    description:
+      "Optimize workforce deployment and material usage with intelligent allocation insights to reduce waste and improve efficiency.",
+    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxzZWFyY2h8OHx8dGVjaG5vbG9neXxlbnwwfHwwfHx8MA%3D%3D",
+  },
+];
 
-  const features = [
-    {
-      icon: (
-        <BarChart className="w-10 h-10 text-white transition-transform duration-300 transform" />
-      ),
-      title: "Construction Dashboard & Reporting",
-      description:
-        "Visualize manpower & progress trends, identify bottlenecks instantly, and track KPIs with precision.",
-      image: "/uploads/48e540e5-6a25-44e4-b3f7-80f3bfc2777a.png",
-    },
-    {
-      icon: (
-        <Activity className="w-10 h-10 text-white transition-transform duration-300 transform" />
-      ),
-      title: "RTLS & RFID Tracking Systems",
-      description:
-        "Bluetooth RTLS & RFID integration, QR-code access logs, and indoor/outdoor positioning.",
-      image: "/uploads/48ecf6e2-5a98-4a9d-af6f-ae2265cd4098.png",
-    },
-    {
-      icon: (
-        <Rocket className="w-10 h-10 text-white transition-transform duration-300 transform" />
-      ),
-      title: "Productivity Forecast & Proposal Support",
-      description:
-        "Predictive analytics, timeline estimation, and resource modeling for accurate project planning.",
-      image: "/uploads/cf8966e3-de0d-445f-9fbd-ee6c48daa7ff.png",
-    },
-  ];
+
 
   const { isHijacked, currentIndex } = useScrollHijack(
     hijackSectionRef,

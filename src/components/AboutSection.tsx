@@ -90,7 +90,7 @@ const AboutSection = () => {
             className="relative"
           >
             <img
-              src="/uploads/11e92b89-ed02-453a-9888-56cd91807f2d.png"
+              src="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fHRlY2hub2xvZ3l8ZW58MHx8MHx8fDA%3D"
               alt="Construction team working with data analytics"
               className="rounded-lg shadow-xl"
             />

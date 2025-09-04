@@ -1,20 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 
 const NewNavbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -24,13 +15,13 @@ const NewNavbar = () => {
     setIsMenuOpen(false);
   };
 
-  const projects = [
-    { title: "FireCat Project", description: "Fire safety and emergency response system" },
-    { title: "Sport Retail", description: "Sports equipment retail solutions" },
-    { title: "Workwear", description: "Professional workwear solutions" },
-    { title: "Hockey Project", description: "Hockey analytics and tracking" },
-    { title: "Pet Tracker", description: "Pet tracking and monitoring system" }
-  ];
+  // const projects = [
+  //   { title: "FireCat Project", description: "Fire safety and emergency response system" },
+  //   { title: "Sport Retail", description: "Sports equipment retail solutions" },
+  //   { title: "Workwear", description: "Professional workwear solutions" },
+  //   { title: "Hockey Project", description: "Hockey analytics and tracking" },
+  //   { title: "Pet Tracker", description: "Pet tracking and monitoring system" }
+  // ];
 
   const company = [
     { title: "About Us", description: "Learn about our mission and values" },
@@ -41,10 +32,9 @@ const NewNavbar = () => {
 
   return (
     <motion.nav 
-     className={cn(
-  "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full bg-white shadow-sm"
-)}
-
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full bg-white shadow-sm"
+      )}
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
     >
@@ -64,28 +54,22 @@ const NewNavbar = () => {
             </button>
           </div>
           
-          {/* Desktop Navigation - Centered */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center flex-1">
             <NavigationMenu>
               <NavigationMenuList className="space-x-6">
                 <NavigationMenuItem>
                   <button 
                     onClick={() => scrollToSection('services')} 
-                  className={cn(
-  "hover:underline transition-colors px-3 py-2 text-gray-700 hover:text-gray-900"
-)}
-
+                    className="hover:underline transition-colors px-3 py-2 text-gray-700 hover:text-gray-900"
                   >
                     Services
                   </button>
                 </NavigationMenuItem>
                 
-                <NavigationMenuItem>
+                {/* <NavigationMenuItem>
                   <NavigationMenuTrigger 
-                    className={cn(
-                      "bg-transparent hover:bg-transparent px-3 py-2",
-  "hover:underline transition-colors px-3 py-2 text-gray-700 hover:text-gray-900"
-                    )}
+                    className="bg-transparent hover:bg-transparent px-3 py-2 hover:underline transition-colors text-gray-700 hover:text-gray-900"
                   >
                     Projects
                   </NavigationMenuTrigger>
@@ -95,7 +79,7 @@ const NewNavbar = () => {
                         <button
                           key={index}
                           onClick={() => scrollToSection('projects')}
-                          className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground text-left"
+                          className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 focus:bg-gray-100 text-left"
                         >
                           <div className="text-sm font-medium leading-none">{project.title}</div>
                           <p className="line-clamp-2 text-sm leading-snug text-gray-500">
@@ -105,14 +89,11 @@ const NewNavbar = () => {
                       ))}
                     </div>
                   </NavigationMenuContent>
-                </NavigationMenuItem>
+                </NavigationMenuItem> */}
 
                 <NavigationMenuItem>
                   <NavigationMenuTrigger 
-                    className={cn(
-                      "bg-transparent hover:bg-transparent px-3 py-2",
-  "hover:underline transition-colors px-3 py-2 text-gray-700 hover:text-gray-900"
-                    )}
+                    className="bg-transparent hover:bg-transparent px-3 py-2 hover:underline transition-colors text-gray-700 hover:text-gray-900"
                   >
                     Company
                   </NavigationMenuTrigger>
@@ -122,7 +103,7 @@ const NewNavbar = () => {
                         <button
                           key={index}
                           onClick={() => scrollToSection('about')}
-className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 focus:bg-gray-100 text-left"
+                          className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 focus:bg-gray-100 text-left"
                         >
                           <div className="text-sm font-medium leading-none">{item.title}</div>
                           <p className="line-clamp-2 text-sm leading-snug text-gray-500">
@@ -137,10 +118,7 @@ className="group block select-none space-y-1 rounded-md p-3 leading-none no-unde
                 <NavigationMenuItem>
                   <button 
                     onClick={() => scrollToSection('why-construction')} 
-                    className={cn(
-                      "hover:underline transition-colors px-3 py-2",
-  "hover:underline transition-colors px-3 py-2 text-gray-700 hover:text-gray-900"
-                    )}
+                    className="hover:underline transition-colors px-3 py-2 text-gray-700 hover:text-gray-900"
                   >
                     Why Construction Data
                   </button>
@@ -149,10 +127,7 @@ className="group block select-none space-y-1 rounded-md p-3 leading-none no-unde
                 <NavigationMenuItem>
                   <button 
                     onClick={() => scrollToSection('process')} 
-                    className={cn(
-                      "hover:underline transition-colors px-3 py-2",
-  "hover:underline transition-colors px-3 py-2 text-gray-700 hover:text-gray-900"
-                    )}
+                    className="hover:underline transition-colors px-3 py-2 text-gray-700 hover:text-gray-900"
                   >
                     How We Work
                   </button>
@@ -161,11 +136,11 @@ className="group block select-none space-y-1 rounded-md p-3 leading-none no-unde
             </NavigationMenu>
           </div>
           
-          {/* Contact Button - Right */}
+          {/* Contact Button */}
           <div className="hidden md:block">
             <button 
               onClick={() => scrollToSection('contact')} 
-              className="px-4 py-2 rounded-md transition-colors bg-primary text-primary-foreground hover:bg-primary/90"
+              className="px-4 py-2 rounded-md transition-colors bg-primary text-white hover:bg-gray-800"
             >
               Contact Us
             </button>
@@ -175,10 +150,7 @@ className="group block select-none space-y-1 rounded-md p-3 leading-none no-unde
           <div className="md:hidden">
             <button 
               onClick={() => setIsMenuOpen(!isMenuOpen)} 
-              className={cn(
-                "focus:outline-none", 
-                isScrolled ? "text-gray-700" : "text-white"
-              )}
+              className="focus:outline-none text-gray-700 hover:text-gray-900 transition-colors p-2 rounded-md"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -186,61 +158,43 @@ className="group block select-none space-y-1 rounded-md p-3 leading-none no-unde
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Navigation */}
       <div className={cn(
         "md:hidden transition-all duration-300 overflow-hidden w-full",
         isMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
       )}>
-        <div className={cn(
-          "px-3 pt-2 pb-3 space-y-1 shadow-sm overflow-y-auto max-h-80",
-          isScrolled ? "bg-white" : "bg-primary"
-        )}>
+        <div className="px-3 pt-2 pb-3 space-y-1 shadow-sm overflow-y-auto max-h-80 bg-white">
           <button 
             onClick={() => scrollToSection('services')} 
-            className={cn(
-              "block w-full text-left px-3 py-1.5 rounded-md text-sm",
-              isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-primary-foreground hover:bg-primary/90"
-            )}
+            className="block w-full text-left px-3 py-1.5 rounded-md text-sm text-gray-700 hover:bg-gray-50"
           >
             Services
           </button>
           
           <button 
             onClick={() => scrollToSection('projects')} 
-            className={cn(
-              "block w-full text-left px-3 py-1.5 rounded-md text-sm",
-              isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-primary-foreground hover:bg-primary/90"
-            )}
+            className="block w-full text-left px-3 py-1.5 rounded-md text-sm text-gray-700 hover:bg-gray-50"
           >
             Projects
           </button>
           
           <button 
             onClick={() => scrollToSection('why-construction')} 
-            className={cn(
-              "block w-full text-left px-3 py-1.5 rounded-md text-sm",
-              isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-primary-foreground hover:bg-primary/90"
-            )}
+            className="block w-full text-left px-3 py-1.5 rounded-md text-sm text-gray-700 hover:bg-gray-50"
           >
             Why Construction Data
           </button>
           
           <button 
             onClick={() => scrollToSection('process')} 
-            className={cn(
-              "block w-full text-left px-3 py-1.5 rounded-md text-sm",
-              isScrolled ? "text-gray-700 hover:bg-gray-50" : "text-primary-foreground hover:bg-primary/90"
-            )}
+            className="block w-full text-left px-3 py-1.5 rounded-md text-sm text-gray-700 hover:bg-gray-50"
           >
             How We Work
           </button>
           
           <button 
             onClick={() => scrollToSection('contact')} 
-            className={cn(
-              "block w-full text-left px-3 py-1.5 rounded-md text-sm",
-              isScrolled ? "text-gray-700 bg-primary/10 hover:bg-primary/20 text-primary" : "text-white bg-primary/20 hover:bg-primary/30"
-            )}
+            className="block w-full text-left px-3 py-1.5 rounded-md text-sm text-white bg-primary/20 hover:bg-primary/30"
           >
             Contact Us
           </button>
