@@ -1,11 +1,15 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import Index from "./pages/Index";
+import RefactoredCloudVaultLayout from "./components/RefactoredCloudVaultLayout";
+import StarredPage from "./pages/StarredPage";
+import SharedPage from "./pages/SharedPage";
+import TrashPage from "./pages/TrashPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
@@ -16,7 +20,39 @@ const App = () => {
         <BrowserRouter>
           <Toaster />
           <Sonner />
-          <Index />
+         
+          <Routes>
+          <Route path="/" element={ <Index />} />
+          <Route path="/filemanager" element={<RefactoredCloudVaultLayout />} />
+          <Route
+            path="/starred"
+            element={
+              <RefactoredCloudVaultLayout>
+                <StarredPage />
+              </RefactoredCloudVaultLayout>
+            }
+          />
+          <Route
+            path="/shared"
+            element={
+              <RefactoredCloudVaultLayout>
+                <SharedPage />
+              </RefactoredCloudVaultLayout>
+            }
+          />
+          <Route
+            path="/trash"
+            element={
+              <RefactoredCloudVaultLayout>
+                <TrashPage />
+              </RefactoredCloudVaultLayout>
+            }
+          />
+          <Route
+            path="/folder/:folderId"
+            element={<RefactoredCloudVaultLayout />}
+          />
+          <Route path="/profile" element={<ProfilePage />} /></Routes>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
