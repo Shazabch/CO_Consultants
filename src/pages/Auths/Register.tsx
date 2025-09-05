@@ -63,38 +63,38 @@ export default function RegisterPage() {
 
     setIsLoading(true)
 
-    try {
-      const response = await authService.register({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        password: formData.password,
-      })
+  try {
+  const response = await authService.register({
+    name: `${formData.firstName} ${formData.lastName}`.trim(), 
+    email: formData.email,
+    password: formData.password,
+  })
 
-      if (response.success) {
-        setSuccess(true)
-        toast({
-          title: "Account Created 🎉",
-          description: "Redirecting to login page...",
-        })
+  if (response.success) {
+    setSuccess(true)
+    toast({
+      title: "Account Created 🎉",
+      description: "Redirecting to login page...",
+    })
 
-        setTimeout(() => {
-          window.location.href = "/login"
-        }, 2000)
-      } else {
-        toast({
-          title: "Registration Failed",
-          description: response.message || "Something went wrong",
-          variant: "destructive",
-        })
-      }
-    } catch (error) {
-      toast({
-        title: "Unexpected Error",
-        description: "Please try again later",
-        variant: "destructive",
-      })
-    } finally {
+    setTimeout(() => {
+      window.location.href = "/filemanager"
+    }, 2000)
+  } else {
+    toast({
+      title: "Registration Failed",
+      description: response.message || "Something went wrong",
+      variant: "destructive",
+    })
+  }
+} catch (error) {
+  toast({
+    title: "Unexpected Error",
+    description: "Please try again later",
+    variant: "destructive",
+  })
+}
+ finally {
       setIsLoading(false)
     }
   }

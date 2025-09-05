@@ -1,18 +1,18 @@
 export const authService = {
   // Register user
-  async register(data: {
-    firstName: string
-    lastName: string
+ async register(data: {
+    name: string
     email: string
     password: string
   }): Promise<{ success: boolean; message?: string }> {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data), // ✅ send name, email, password
       })
 
       const result = await res.json()
