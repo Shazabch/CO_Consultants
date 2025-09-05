@@ -1,10 +1,6 @@
 export const authService = {
   // Register user
- async register(data: {
-    name: string
-    email: string
-    password: string
-  }): Promise<{ success: boolean; message?: string }> {
+async register(data: { name: string; email: string; password: string }): Promise<{ success: boolean; message?: string }> {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: "POST",
@@ -12,19 +8,19 @@ export const authService = {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(data), // ✅ send name, email, password
-      })
+        body: JSON.stringify(data),
+      });
 
-      const result = await res.json()
+      const result = await res.json();
 
       if (!res.ok) {
-        return { success: false, message: result.message || "Registration failed" }
+        return { success: false, message: result.message || "Registration failed" };
       }
 
-      return { success: true, message: "Registration successful" }
+      return { success: true, message: "Registration successful" };
     } catch (err) {
-      console.error("❌ Register error:", err)
-      return { success: false, message: "Something went wrong" }
+      console.error("❌ Register error:", err);
+      return { success: false, message: "Something went wrong" };
     }
   },
 
