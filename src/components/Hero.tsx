@@ -63,7 +63,7 @@ const Hero = () => {
             poster="/uploads/4bfa0d71-3ed2-4693-90b6-35142468907f.png"
           >
             <source
-              src="/uploads/video_1751292840840_1751292842546.mp4"
+              src="/uploads/header.mp4"
               type="video/mp4"
             />
             {/* Fallback image if video fails to load */}

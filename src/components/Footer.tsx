@@ -1,4 +1,4 @@
-import { ArrowRight, Linkedin } from "lucide-react";
+import { ArrowRight, Linkedin, Twitter, Facebook, Instagram, Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -67,39 +67,30 @@ const Footer = () => {
   return (
     <footer
       id="contact"
-      className="bg-gradient-to-b from-white to-[#5ba9b2]  text-black pt-16 pb-8 w-full"
+      className="bg-gradient-to-b from-white to-[#5ba9b2] text-black pt-16 pb-8 w-full"
     >
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 pb-10 border-b border-white/20">
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-10 pb-10 border-b border-white/20">
           <div className="lg:col-span-2">
             <img
               src="/Assets/horizontallogo.png"
               alt="CO Consultants Logo"
               className="h-20 w-auto mb-6"
             />
-            <p className=" text-black/80 mb-6">
+            <p className="text-black/80 mb-6">
               CO Consultants provides comprehensive construction data analytics
               and tracking solutions, giving you complete visibility into
               project performance while we handle the complete technological
               implementation.
             </p>
-            <p className=" text-black/80 mb-6">
+            <p className="text-black/80 mb-6">
               1234 Construction Drive
               <br />
               Suite 567
               <br />
               Manchester, UK M1 1AA
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://www.linkedin.com/company/co-consultants/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center  text-black hover:bg-white/30 transition-colors"
-              >
-                <Linkedin size={20} />
-              </a>
-            </div>
+            
           </div>
 
           <div>
@@ -112,7 +103,7 @@ const Footer = () => {
                       behavior: "smooth",
                     })
                   }
-                  className=" text-black/80 hover: text-black transition-colors"
+                  className="text-black/80 hover:text-black transition-colors"
                 >
                   About Us
                 </button>
@@ -124,7 +115,7 @@ const Footer = () => {
                       behavior: "smooth",
                     })
                   }
-                  className=" text-black/80 hover: text-black transition-colors"
+                  className="text-black/80 hover:text-black transition-colors"
                 >
                   Careers
                 </button>
@@ -136,7 +127,7 @@ const Footer = () => {
                       behavior: "smooth",
                     })
                   }
-                  className=" text-black/80 hover: text-black transition-colors"
+                  className="text-black/80 hover:text-black transition-colors"
                 >
                   Privacy Policy
                 </button>
@@ -145,21 +136,182 @@ const Footer = () => {
           </div>
 
           <div>
+            <h3 className="text-lg font-bold mb-4 text-black">Resources</h3>
+            <ul className="space-y-3">
+              <li>
+                <button
+                  onClick={() =>
+                    document.getElementById("contact")?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-black/80 hover:text-black transition-colors"
+                >
+                  Case Studies
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    document.getElementById("contact")?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-black/80 hover:text-black transition-colors"
+                >
+                  White Papers
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    document.getElementById("contact")?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-black/80 hover:text-black transition-colors"
+                >
+                  Documentation
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    document.getElementById("contact")?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-black/80 hover:text-black transition-colors"
+                >
+                  Help Center
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold mb-4 text-black">Services</h3>
+            <ul className="space-y-3">
+              <li>
+                <button
+                  onClick={() =>
+                    document.getElementById("services")?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-black/80 hover:text-black transition-colors"
+                >
+                  Data Analytics
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    document.getElementById("services")?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-black/80 hover:text-black transition-colors"
+                >
+                  Project Tracking
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    document.getElementById("services")?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-black/80 hover:text-black transition-colors"
+                >
+                  Consulting
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() =>
+                    document.getElementById("services")?.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-black/80 hover:text-black transition-colors"
+                >
+                  Support
+                </button>
+              </li>
+            </ul>
+            
+      <div className="mt-6">
+  <h3 className="text-lg font-semibold text-black mb-3">Connect with us</h3>
+  <div className="flex space-x-3">
+    <a
+      href="https://twitter.com/coconsultants"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-white/30 transition-colors"
+    >
+      <Twitter size={20} />
+    </a>
+    <a
+      href="https://facebook.com/coconsultants"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-white/30 transition-colors"
+    >
+      <Facebook size={20} />
+    </a>
+    <a
+      href="https://instagram.com/coconsultants"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-white/30 transition-colors"
+    >
+      <Instagram size={20} />
+    </a>
+    <a
+      href="https://linkedin.com/company/coconsultants"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-white/30 transition-colors"
+    >
+      <Linkedin size={20} />
+    </a>
+    <a
+      href="mailto:info@coconsultants.com"
+      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-white/30 transition-colors"
+    >
+      <Mail size={20} />
+    </a>
+    <a
+      href="tel:+441234567890"
+      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-gray-600 hover:text-gray-800 hover:bg-white/30 transition-colors"
+    >
+      <Phone size={20} />
+    </a>
+  </div>
+</div>
+
+
+          </div>
+
+          <div>
             <h3 className="text-lg font-bold mb-4 text-black">Get in Touch</h3>
             <form className="space-y-4" onSubmit={handleSubscribe}>
               <div>
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5ba9b2]  text-black placeholder-white/70"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={isSubmitting}
-                />
+               <input
+  type="email"
+  placeholder="Your email"
+  className="w-full px-4 py-2 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-[#5ba9b2] text-black placeholder-black/70"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  disabled={isSubmitting}
+/>
+
               </div>
               <button
                 type="submit"
-                className="w-full px-4 py-2 bg-[#5ba9b2]  text-black rounded-md hover:bg-[#4a929b] transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full px-4 py-2 bg-[#5ba9b2] text-black rounded-md hover:bg-[#4a929b] transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -175,8 +327,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className=" text-black/70 text-sm mb-4 md:mb-0">
+        <div className="pt-1 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-black/70 text-sm mb-2 md:mb-0">
             © {new Date().getFullYear()} CO Consultants. All rights reserved.
           </p>
           <div className="flex space-x-6">
@@ -186,7 +338,7 @@ const Footer = () => {
                   behavior: "smooth",
                 })
               }
-              className="text-sm  text-black/70 hover: text-black transition-colors"
+              className="text-sm text-black/70 hover:text-black transition-colors"
             >
               Privacy Policy
             </button>
