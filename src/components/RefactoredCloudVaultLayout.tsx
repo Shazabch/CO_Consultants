@@ -16,36 +16,38 @@ interface RefactoredCloudVaultLayoutProps {
   children?: React.ReactNode;
 }
 
-export default function RefactoredCloudVaultLayout({ children }: RefactoredCloudVaultLayoutProps) {
+export default function RefactoredCloudVaultLayout({
+  children,
+}: RefactoredCloudVaultLayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { folderId } = useParams();
-  
+
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isNewFolderModalOpen, setIsNewFolderModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  
+
   const currentPath = location.pathname;
-  
+
   const getBreadcrumbPath = () => {
     switch (currentPath) {
-      case '/starred':
-        return [{ name: 'Starred', path: '/starred' }];
-      case '/shared':
-        return [{ name: 'Shared with me', path: '/shared' }];
-      case '/trash':
-        return [{ name: 'Trash', path: '/trash' }];
-      case '/profile':
-        return [{ name: 'Profile', path: '/profile' }];
-      case '/':
+      case "/starred":
+        return [{ name: "Starred", path: "/starred" }];
+      case "/shared":
+        return [{ name: "Shared with me", path: "/shared" }];
+      case "/trash":
+        return [{ name: "Trash", path: "/trash" }];
+      case "/profile":
+        return [{ name: "Profile", path: "/profile" }];
+      case "/":
       default:
-        if (currentPath.startsWith('/folder/')) {
+        if (currentPath.startsWith("/folder/")) {
           return [
-            { name: 'My Files', path: '/' },
-            { name: 'Current Folder', path: currentPath }
+            { name: "My Files", path: "/" },
+            { name: "Current Folder", path: currentPath },
           ];
         }
-        return [{ name: 'My Files', path: '/' }];
+        return [{ name: "My Files", path: "/" }];
     }
   };
 
@@ -53,38 +55,38 @@ export default function RefactoredCloudVaultLayout({ children }: RefactoredCloud
     try {
       const response = await apiService.uploadFile(file, folderId);
       if (response.success) {
-        toast.success('File uploaded successfully');
+        toast.success("File uploaded successfully");
         // Trigger file list refresh
-        window.dispatchEvent(new CustomEvent('fileUploaded'));
+        window.dispatchEvent(new CustomEvent("fileUploaded"));
       } else {
-        toast.error('Failed to upload file');
+        toast.error("Failed to upload file");
       }
     } catch (error) {
-      console.error('Error uploading file:', error);
-      toast.error('Error uploading file');
+      console.error("Error uploading file:", error);
+      toast.error("Error uploading file");
     }
   };
-  
+
   const handleFolderCreated = async (folderName: string) => {
     try {
       const response = await apiService.createFolder(folderName, folderId);
       if (response.success) {
-        toast.success('Folder created successfully');
+        toast.success("Folder created successfully");
         // Trigger both sidebar and file list refresh
-        window.dispatchEvent(new CustomEvent('folderCreated'));
+        window.dispatchEvent(new CustomEvent("folderCreated"));
       } else {
-        toast.error('Failed to create folder');
+        toast.error("Failed to create folder");
       }
     } catch (error) {
-      console.error('Error creating folder:', error);
-      toast.error('Error creating folder');
+      console.error("Error creating folder:", error);
+      toast.error("Error creating folder");
     }
   };
 
   const handleProfileClick = () => {
-    navigate('/profile');
+    navigate("/profile");
   };
-  
+
   return (
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
@@ -100,10 +102,12 @@ export default function RefactoredCloudVaultLayout({ children }: RefactoredCloud
               {getBreadcrumbPath().map((crumb, index) => (
                 <div key={crumb.path} className="flex items-center gap-2">
                   {index > 0 && <ChevronRight className="w-4 h-4" />}
-                  <button 
+                  <button
                     onClick={() => navigate(crumb.path)}
                     className={`hover:text-foreground transition-colors ${
-                      index === getBreadcrumbPath().length - 1 ? 'text-foreground font-medium' : ''
+                      index === getBreadcrumbPath().length - 1
+                        ? "text-foreground font-medium"
+                        : ""
                     }`}
                   >
                     {crumb.name}
@@ -117,25 +121,23 @@ export default function RefactoredCloudVaultLayout({ children }: RefactoredCloud
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input 
-                placeholder="Search files..." 
+              <Input
+                placeholder="Search files..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 w-64 bg-input border-border"
               />
             </div>
-            
+
             {/* Notifications */}
             <NotificationDropdown />
-            
+
             {/* User Avatar */}
-        <Avatar className="cursor-pointer" onClick={handleProfileClick}>
-  <AvatarFallback className="bg-brand text-brand-foreground hover:bg-brand/90 transition-colors">
-    U
-  </AvatarFallback>
-</Avatar>
-
-
+            <Avatar className="cursor-pointer" onClick={handleProfileClick}>
+              <AvatarFallback className="bg-panel text-panel-foreground hover:bg-panel/90 transition-colors">
+                U
+              </AvatarFallback>
+            </Avatar>
           </div>
         </header>
 
@@ -149,17 +151,17 @@ export default function RefactoredCloudVaultLayout({ children }: RefactoredCloud
                   {getBreadcrumbPath()[getBreadcrumbPath().length - 1]?.name}
                 </h1>
                 <div className="flex items-center gap-2">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     onClick={() => setIsNewFolderModalOpen(true)}
                   >
                     <Folder className="w-4 h-4 mr-2" />
                     New Folder
                   </Button>
-                  <Button 
-                    size="sm" 
-                    className="bg-brand hover:bg-brand/90 text-brand-foreground"
+                  <Button
+                    size="sm"
+                    className="bg-panel hover:bg-panel/90 text-panel-foreground"
                     onClick={() => setIsUploadModalOpen(true)}
                   >
                     <Upload className="w-4 h-4 mr-2" />
@@ -169,9 +171,11 @@ export default function RefactoredCloudVaultLayout({ children }: RefactoredCloud
               </div>
 
               {/* File List */}
-              <EnhancedFileList 
+              <EnhancedFileList
                 searchQuery={searchQuery}
-                onFolderCreated={() => window.dispatchEvent(new CustomEvent('folderCreated'))}
+                onFolderCreated={() =>
+                  window.dispatchEvent(new CustomEvent("folderCreated"))
+                }
               />
             </div>
           )}
@@ -183,14 +187,18 @@ export default function RefactoredCloudVaultLayout({ children }: RefactoredCloud
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
         onFileUploaded={handleFileUploaded}
-        currentFolder={getBreadcrumbPath().map(p => p.name).join(' / ')}
+        currentFolder={getBreadcrumbPath()
+          .map((p) => p.name)
+          .join(" / ")}
       />
-      
+
       <NewFolderModal
         isOpen={isNewFolderModalOpen}
         onClose={() => setIsNewFolderModalOpen(false)}
         onFolderCreated={handleFolderCreated}
-        currentPath={getBreadcrumbPath().map(p => p.name).join(' / ')}
+        currentPath={getBreadcrumbPath()
+          .map((p) => p.name)
+          .join(" / ")}
       />
     </div>
   );

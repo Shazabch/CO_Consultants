@@ -10,6 +10,8 @@ import StarredPage from "./pages/StarredPage";
 import SharedPage from "./pages/SharedPage";
 import TrashPage from "./pages/TrashPage";
 import ProfilePage from "./pages/ProfilePage";
+import LoginPage from "./pages/Auths/Login";
+import RegisterPage from "./pages/Auths/Register";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
@@ -52,7 +54,10 @@ const App = () => {
             path="/folder/:folderId"
             element={<RefactoredCloudVaultLayout />}
           />
-          <Route path="/profile" element={<ProfilePage />} /></Routes>
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { FileText, Archive, Image, Video, File, Folder, Star, Trash2, Share, Download } from "lucide-react";
+import {
+  FileText,
+  Archive,
+  Image,
+  Video,
+  File,
+  Folder,
+  Star,
+  Trash2,
+  Share,
+  Download,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { apiService, FileItem, FolderItem } from "@/services/api";
 import { toast } from "sonner";
@@ -13,22 +24,25 @@ interface FileListProps {
 const getFileIcon = (type: string) => {
   const iconClass = "w-4 h-4 text-muted-foreground mr-2";
   switch (type) {
-    case 'document':
+    case "document":
       return <FileText className={iconClass} />;
-    case 'zip':
+    case "zip":
       return <Archive className={iconClass} />;
-    case 'image':
+    case "image":
       return <Image className={iconClass} />;
-    case 'video':
+    case "video":
       return <Video className={iconClass} />;
-    case 'folder':
+    case "folder":
       return <Folder className={iconClass} />;
     default:
       return <File className={iconClass} />;
   }
 };
 
-export default function FileList({ searchQuery, onFolderCreated }: FileListProps) {
+export default function FileList({
+  searchQuery,
+  onFolderCreated,
+}: FileListProps) {
   const { folderId } = useParams();
   const [files, setFiles] = useState<FileItem[]>([]);
   const [folders, setFolders] = useState<FolderItem[]>([]);
@@ -52,9 +66,9 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
     const handleFilesMoved = () => {
       loadFiles();
     };
-    
-    window.addEventListener('filesMoved', handleFilesMoved);
-    return () => window.removeEventListener('filesMoved', handleFilesMoved);
+
+    window.addEventListener("filesMoved", handleFilesMoved);
+    return () => window.removeEventListener("filesMoved", handleFilesMoved);
   }, []);
 
   const loadData = () => {
@@ -69,11 +83,11 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
       if (response.success) {
         setFiles(response.data);
       } else {
-        toast.error('Failed to load files');
+        toast.error("Failed to load files");
       }
     } catch (error) {
-      console.error('Error loading files:', error);
-      toast.error('Error loading files');
+      console.error("Error loading files:", error);
+      toast.error("Error loading files");
     } finally {
       setLoading(false);
     }
@@ -86,7 +100,7 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
         setFolders(response.data);
       }
     } catch (error) {
-      console.error('Error loading folders:', error);
+      console.error("Error loading folders:", error);
     }
   };
 
@@ -97,11 +111,11 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
       if (response.success) {
         setFiles(response.data);
       } else {
-        toast.error('Search failed');
+        toast.error("Search failed");
       }
     } catch (error) {
-      console.error('Error searching files:', error);
-      toast.error('Error searching files');
+      console.error("Error searching files:", error);
+      toast.error("Error searching files");
     } finally {
       setLoading(false);
     }
@@ -112,13 +126,13 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
       const response = await apiService.starFile(fileId);
       if (response.success) {
         loadFiles();
-        toast.success('File starred successfully');
+        toast.success("File starred successfully");
       } else {
-        toast.error('Failed to star file');
+        toast.error("Failed to star file");
       }
     } catch (error) {
-      console.error('Error starring file:', error);
-      toast.error('Error starring file');
+      console.error("Error starring file:", error);
+      toast.error("Error starring file");
     }
   };
 
@@ -127,29 +141,29 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
       const response = await apiService.moveToTrash(fileId);
       if (response.success) {
         loadFiles();
-        toast.success('File moved to trash');
+        toast.success("File moved to trash");
       } else {
-        toast.error('Failed to move file to trash');
+        toast.error("Failed to move file to trash");
       }
     } catch (error) {
-      console.error('Error moving file to trash:', error);
-      toast.error('Error moving file to trash');
+      console.error("Error moving file to trash:", error);
+      toast.error("Error moving file to trash");
     }
   };
 
   const handleShareFile = async (fileId: string) => {
-    const email = prompt('Enter email to share with:');
+    const email = prompt("Enter email to share with:");
     if (email) {
       try {
         const response = await apiService.shareFile(fileId, email);
         if (response.success) {
-          toast.success('File shared successfully');
+          toast.success("File shared successfully");
         } else {
-          toast.error('Failed to share file');
+          toast.error("Failed to share file");
         }
       } catch (error) {
-        console.error('Error sharing file:', error);
-        toast.error('Error sharing file');
+        console.error("Error sharing file:", error);
+        toast.error("Error sharing file");
       }
     }
   };
@@ -160,7 +174,7 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
   };
 
   const handleDragStart = (e: React.DragEvent, fileId: string) => {
-    e.dataTransfer.setData('text/plain', fileId);
+    e.dataTransfer.setData("text/plain", fileId);
     setDraggedFile(fileId);
   };
 
@@ -168,22 +182,25 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
     setDraggedFile(null);
   };
 
-  const handleFolderDrop = async (e: React.DragEvent, targetFolderId: string) => {
+  const handleFolderDrop = async (
+    e: React.DragEvent,
+    targetFolderId: string
+  ) => {
     e.preventDefault();
-    const fileId = e.dataTransfer.getData('text/plain');
-    
+    const fileId = e.dataTransfer.getData("text/plain");
+
     if (fileId) {
       try {
         const response = await apiService.moveFile(fileId, targetFolderId);
         if (response.success) {
           loadFiles();
-          toast.success('File moved successfully');
+          toast.success("File moved successfully");
         } else {
-          toast.error('Failed to move file');
+          toast.error("Failed to move file");
         }
       } catch (error) {
-        console.error('Error moving file:', error);
-        toast.error('Error moving file');
+        console.error("Error moving file:", error);
+        toast.error("Error moving file");
       }
     }
   };
@@ -198,14 +215,16 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
       {folders.length > 0 && (
         <div className="grid grid-cols-4 gap-4 mb-4">
           {folders.map((folder) => (
-            <div 
+            <div
               key={folder.id}
               className="flex items-center gap-2 p-3 border border-border rounded-lg hover:bg-muted/50 cursor-pointer text-left transition-colors"
               onDrop={(e) => handleFolderDrop(e, folder.id)}
               onDragOver={handleDragOver}
             >
-              <Folder className="w-5 h-5 text-brand" />
-              <span className="text-sm font-medium truncate">{folder.name}</span>
+              <Folder className="w-5 h-5 text-panel" />
+              <span className="text-sm font-medium truncate">
+                {folder.name}
+              </span>
             </div>
           ))}
         </div>
@@ -222,7 +241,7 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
             <div>Actions</div>
           </div>
         </div>
-        
+
         <div className="divide-y divide-border">
           {loading ? (
             <div className="px-4 py-8 text-center text-muted-foreground">
@@ -234,8 +253,8 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
             </div>
           ) : (
             files.map((file) => (
-              <div 
-                key={file.id} 
+              <div
+                key={file.id}
                 className="px-4 py-3 hover:bg-muted/50 cursor-pointer group transition-colors"
                 draggable
                 onDragStart={(e) => handleDragStart(e, file.id)}
@@ -248,7 +267,9 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
                     <span className="text-foreground">{file.name}</span>
                   </div>
                   <div className="text-muted-foreground">{file.owner}</div>
-                  <div className="text-muted-foreground">{file.lastModified}</div>
+                  <div className="text-muted-foreground">
+                    {file.lastModified}
+                  </div>
                   <div className="text-muted-foreground">{file.size}</div>
                   <div className="flex items-center gap-1">
                     <Button
@@ -261,7 +282,11 @@ export default function FileList({ searchQuery, onFolderCreated }: FileListProps
                       className="h-8 w-8 p-0"
                       title="Star file"
                     >
-                      <Star className={`h-3 w-3 ${file.starred ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+                      <Star
+                        className={`h-3 w-3 ${
+                          file.starred ? "fill-yellow-400 text-yellow-400" : ""
+                        }`}
+                      />
                     </Button>
                     <Button
                       variant="ghost"

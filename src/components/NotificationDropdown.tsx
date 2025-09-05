@@ -13,7 +13,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Notification {
   id: string;
-  type: 'share' | 'upload' | 'comment' | 'system';
+  type: "share" | "upload" | "comment" | "system";
   title: string;
   message: string;
   time: string;
@@ -23,68 +23,68 @@ interface Notification {
 
 const mockNotifications: Notification[] = [
   {
-    id: '1',
-    type: 'share',
-    title: 'File Shared',
+    id: "1",
+    type: "share",
+    title: "File Shared",
     message: 'Alice Johnson shared "Marketing_Plan.pdf" with you',
-    time: '5 minutes ago',
+    time: "5 minutes ago",
     read: false,
-    icon: <Users className="h-4 w-4 text-blue-500" />
+    icon: <Users className="h-4 w-4 text-blue-500" />,
   },
   {
-    id: '2',
-    type: 'upload',
-    title: 'Upload Complete',
+    id: "2",
+    type: "upload",
+    title: "Upload Complete",
     message: 'Successfully uploaded "Project_Brief.docx"',
-    time: '15 minutes ago',
+    time: "15 minutes ago",
     read: false,
-    icon: <FileText className="h-4 w-4 text-green-500" />
+    icon: <FileText className="h-4 w-4 text-green-500" />,
   },
   {
-    id: '3',
-    type: 'system',
-    title: 'Storage Alert',
-    message: 'You are using 85% of your storage quota',
-    time: '1 hour ago',
+    id: "3",
+    type: "system",
+    title: "Storage Alert",
+    message: "You are using 85% of your storage quota",
+    time: "1 hour ago",
     read: true,
-    icon: <Star className="h-4 w-4 text-orange-500" />
+    icon: <Star className="h-4 w-4 text-orange-500" />,
   },
   {
-    id: '4',
-    type: 'share',
-    title: 'File Shared',
+    id: "4",
+    type: "share",
+    title: "File Shared",
     message: 'Bob Williams shared "Design_Assets.zip" with you',
-    time: '2 hours ago',
+    time: "2 hours ago",
     read: true,
-    icon: <Users className="h-4 w-4 text-blue-500" />
+    icon: <Users className="h-4 w-4 text-blue-500" />,
   },
   {
-    id: '5',
-    type: 'system',
-    title: 'File Deleted',
-    message: 'Old_Version.docx was moved to trash',
-    time: '1 day ago',
+    id: "5",
+    type: "system",
+    title: "File Deleted",
+    message: "Old_Version.docx was moved to trash",
+    time: "1 day ago",
     read: true,
-    icon: <Trash2 className="h-4 w-4 text-red-500" />
-  }
+    icon: <Trash2 className="h-4 w-4 text-red-500" />,
+  },
 ];
 
 export default function NotificationDropdown() {
   const [notifications, setNotifications] = useState(mockNotifications);
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.read).length;
 
   const markAsRead = (id: string) => {
-    setNotifications(prev => prev.map(n => 
-      n.id === id ? { ...n, read: true } : n
-    ));
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
   };
 
   const markAllAsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   };
 
   const deleteNotification = (id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
   return (
@@ -93,8 +93,8 @@ export default function NotificationDropdown() {
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-4 w-4" />
           {unreadCount > 0 && (
-            <Badge 
-              variant="destructive" 
+            <Badge
+              variant="destructive"
               className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
             >
               {unreadCount}
@@ -102,8 +102,11 @@ export default function NotificationDropdown() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      
-      <DropdownMenuContent align="end" className="w-80 bg-background border shadow-lg">
+
+      <DropdownMenuContent
+        align="end"
+        className="w-80 bg-background border shadow-lg"
+      >
         <div className="flex items-center justify-between p-4 border-b">
           <h3 className="font-semibold">Notifications</h3>
           {unreadCount > 0 && (
@@ -112,7 +115,7 @@ export default function NotificationDropdown() {
             </Button>
           )}
         </div>
-        
+
         <ScrollArea className="max-h-96">
           {notifications.length === 0 ? (
             <div className="p-4 text-center text-muted-foreground">
@@ -122,22 +125,24 @@ export default function NotificationDropdown() {
           ) : (
             <div className="divide-y divide-border">
               {notifications.map((notification) => (
-                <div 
+                <div
                   key={notification.id}
                   className={`p-4 hover:bg-muted/50 transition-colors ${
-                    !notification.read ? 'bg-brand/5' : ''
+                    !notification.read ? "bg-panel/5" : ""
                   }`}
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 mt-1">
                       {notification.icon}
                     </div>
-                    
+
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <p className="font-medium text-sm">{notification.title}</p>
+                        <p className="font-medium text-sm">
+                          {notification.title}
+                        </p>
                         {!notification.read && (
-                          <div className="w-2 h-2 bg-brand rounded-full"></div>
+                          <div className="w-2 h-2 bg-panel rounded-full"></div>
                         )}
                       </div>
                       <p className="text-sm text-muted-foreground mb-2">
@@ -147,7 +152,7 @@ export default function NotificationDropdown() {
                         {notification.time}
                       </p>
                     </div>
-                    
+
                     <div className="flex items-center gap-1">
                       {!notification.read && (
                         <Button
@@ -172,7 +177,7 @@ export default function NotificationDropdown() {
             </div>
           )}
         </ScrollArea>
-        
+
         {notifications.length > 0 && (
           <>
             <DropdownMenuSeparator />

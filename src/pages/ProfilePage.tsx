@@ -2,13 +2,32 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { User, Mail, Phone, MapPin, Shield, Settings, HardDrive, Home, Users, Star, Trash2, Upload } from "lucide-react";
+import {
+  User,
+  Mail,
+  Phone,
+  MapPin,
+  Shield,
+  Settings,
+  HardDrive,
+  Home,
+  Users,
+  Star,
+  Trash2,
+  Upload,
+} from "lucide-react";
 import { toast } from "sonner";
 
 export default function ProfilePage() {
@@ -18,14 +37,14 @@ export default function ProfilePage() {
     email: "john.doe@example.com",
     phone: "+1 (555) 123-4567",
     location: "San Francisco, CA",
-    avatar: ""
+    avatar: "",
   });
 
   const [settings, setSettings] = useState({
     notifications: true,
     darkMode: false,
     autoSync: true,
-    shareByDefault: false
+    shareByDefault: false,
   });
 
   const handleProfileUpdate = () => {
@@ -43,10 +62,12 @@ export default function ProfilePage() {
         {/* Logo */}
         <div className="p-4 border-b border-sidebar-border">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center text-brand-foreground font-bold text-sm">
+            <div className="w-8 h-8 bg-panel rounded-full flex items-center justify-center text-panel-foreground font-bold text-sm">
               CV
             </div>
-            <span className="font-semibold text-sidebar-foreground">CloudVault</span>
+            <span className="font-semibold text-sidebar-foreground">
+              CloudVault
+            </span>
           </div>
         </div>
 
@@ -54,13 +75,13 @@ export default function ProfilePage() {
         <div className="flex-1 p-4 overflow-y-auto">
           <nav className="space-y-1">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
               className="flex items-center gap-2 px-3 py-2 w-full text-left rounded-md transition-colors text-sidebar-foreground hover:bg-sidebar-accent/50"
             >
               <Home className="w-4 h-4" />
               <span className="text-sm">Home</span>
             </button>
-            
+
             <div className="mt-6">
               <div className="px-3 py-1 text-xs font-medium text-sidebar-foreground/60 uppercase tracking-wide">
                 My Files
@@ -69,29 +90,27 @@ export default function ProfilePage() {
 
             <div className="mt-8 space-y-1">
               <button
-                onClick={() => navigate('/shared')}
+                onClick={() => navigate("/shared")}
                 className="flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors text-sidebar-foreground hover:bg-sidebar-accent/50"
               >
                 <Users className="w-4 h-4" />
                 <span>Shared with me</span>
               </button>
               <button
-                onClick={() => navigate('/starred')}
+                onClick={() => navigate("/starred")}
                 className="flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors text-sidebar-foreground hover:bg-sidebar-accent/50"
               >
                 <Star className="w-4 h-4" />
                 <span>Starred</span>
               </button>
               <button
-                onClick={() => navigate('/trash')}
+                onClick={() => navigate("/trash")}
                 className="flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors text-sidebar-foreground hover:bg-sidebar-accent/50"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>Trash</span>
               </button>
-              <button
-                className="flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-              >
+              <button className="flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors bg-sidebar-accent text-sidebar-accent-foreground font-medium">
                 <User className="w-4 h-4" />
                 <span>Profile</span>
               </button>
@@ -101,9 +120,9 @@ export default function ProfilePage() {
 
         {/* Upload Button */}
         <div className="p-4 border-t border-sidebar-border">
-          <Button 
-            className="w-full bg-brand hover:bg-brand/90 text-brand-foreground"
-            onClick={() => navigate('/')}
+          <Button
+            className="w-full bg-panel hover:bg-panel/90 text-panel-foreground"
+            onClick={() => navigate("/")}
           >
             <Upload className="w-4 h-4 mr-2" />
             New Upload
@@ -119,12 +138,17 @@ export default function ProfilePage() {
             <div className="flex items-center gap-6">
               <Avatar className="h-20 w-20">
                 <AvatarImage src={profileData.avatar} />
-                <AvatarFallback className="text-lg font-semibold bg-brand text-brand-foreground">
-                  {profileData.name.split(' ').map(n => n[0]).join('')}
+                <AvatarFallback className="text-lg font-semibold bg-panel text-panel-foreground">
+                  {profileData.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
                 </AvatarFallback>
               </Avatar>
               <div>
-                <h1 className="text-3xl font-bold text-foreground">{profileData.name}</h1>
+                <h1 className="text-3xl font-bold text-foreground">
+                  {profileData.name}
+                </h1>
                 <p className="text-muted-foreground">{profileData.email}</p>
                 <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
@@ -174,7 +198,12 @@ export default function ProfilePage() {
                       <Input
                         id="name"
                         value={profileData.name}
-                        onChange={(e) => setProfileData(prev => ({ ...prev, name: e.target.value }))}
+                        onChange={(e) =>
+                          setProfileData((prev) => ({
+                            ...prev,
+                            name: e.target.value,
+                          }))
+                        }
                       />
                     </div>
                     <div className="space-y-2">
@@ -183,7 +212,12 @@ export default function ProfilePage() {
                         id="email"
                         type="email"
                         value={profileData.email}
-                        onChange={(e) => setProfileData(prev => ({ ...prev, email: e.target.value }))}
+                        onChange={(e) =>
+                          setProfileData((prev) => ({
+                            ...prev,
+                            email: e.target.value,
+                          }))
+                        }
                       />
                     </div>
                   </div>
@@ -193,7 +227,12 @@ export default function ProfilePage() {
                       <Input
                         id="phone"
                         value={profileData.phone}
-                        onChange={(e) => setProfileData(prev => ({ ...prev, phone: e.target.value }))}
+                        onChange={(e) =>
+                          setProfileData((prev) => ({
+                            ...prev,
+                            phone: e.target.value,
+                          }))
+                        }
                       />
                     </div>
                     <div className="space-y-2">
@@ -201,17 +240,21 @@ export default function ProfilePage() {
                       <Input
                         id="location"
                         value={profileData.location}
-                        onChange={(e) => setProfileData(prev => ({ ...prev, location: e.target.value }))}
+                        onChange={(e) =>
+                          setProfileData((prev) => ({
+                            ...prev,
+                            location: e.target.value,
+                          }))
+                        }
                       />
                     </div>
                   </div>
-                <Button
-  onClick={handleProfileUpdate}
-  className="bg-brand text-brand-foreground hover:bg-brand/90"
->
-  Update Profile
-</Button>
-
+                  <Button
+                    onClick={handleProfileUpdate}
+                    className="bg-panel text-panel-foreground hover:bg-panel/90"
+                  >
+                    Update Profile
+                  </Button>
                 </CardContent>
               </Card>
 
@@ -225,11 +268,18 @@ export default function ProfilePage() {
                 <CardContent>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Used Storage</span>
-                      <span className="text-sm font-medium">2.5 GB of 15 GB</span>
+                      <span className="text-sm text-muted-foreground">
+                        Used Storage
+                      </span>
+                      <span className="text-sm font-medium">
+                        2.5 GB of 15 GB
+                      </span>
                     </div>
                     <div className="w-full bg-muted rounded-full h-2">
-                      <div className="bg-brand h-2 rounded-full" style={{ width: '16.7%' }}></div>
+                      <div
+                        className="bg-panel h-2 rounded-full"
+                        style={{ width: "16.7%" }}
+                      ></div>
                     </div>
                     <div className="grid grid-cols-3 gap-4 text-sm">
                       <div className="text-center">
@@ -269,9 +319,13 @@ export default function ProfilePage() {
                     <Switch
                       id="notifications"
                       checked={settings.notifications}
-                      onCheckedChange={(checked) => setSettings(prev => ({ ...prev, notifications: checked }))}
-                        className="data-[state=checked]:bg-brand"
-
+                      onCheckedChange={(checked) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          notifications: checked,
+                        }))
+                      }
+                      className="data-[state=checked]:bg-panel"
                     />
                   </div>
                   <Separator />
@@ -285,9 +339,10 @@ export default function ProfilePage() {
                     <Switch
                       id="darkMode"
                       checked={settings.darkMode}
-                      onCheckedChange={(checked) => setSettings(prev => ({ ...prev, darkMode: checked }))}
-                        className="data-[state=checked]:bg-brand"
-
+                      onCheckedChange={(checked) =>
+                        setSettings((prev) => ({ ...prev, darkMode: checked }))
+                      }
+                      className="data-[state=checked]:bg-panel"
                     />
                   </div>
                   <Separator />
@@ -301,9 +356,10 @@ export default function ProfilePage() {
                     <Switch
                       id="autoSync"
                       checked={settings.autoSync}
-                        className="data-[state=checked]:bg-brand"
-
-                      onCheckedChange={(checked) => setSettings(prev => ({ ...prev, autoSync: checked }))}
+                      className="data-[state=checked]:bg-panel"
+                      onCheckedChange={(checked) =>
+                        setSettings((prev) => ({ ...prev, autoSync: checked }))
+                      }
                     />
                   </div>
                   <Separator />
@@ -317,12 +373,15 @@ export default function ProfilePage() {
                     <Switch
                       id="shareByDefault"
                       checked={settings.shareByDefault}
-                      onCheckedChange={(checked) => setSettings(prev => ({ ...prev, shareByDefault: checked }))}
+                      onCheckedChange={(checked) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          shareByDefault: checked,
+                        }))
+                      }
                     />
                   </div>
-                  <Button
-                    className="bg-brand"
- onClick={handleSettingsUpdate}>
+                  <Button className="bg-panel" onClick={handleSettingsUpdate}>
                     Save Settings
                   </Button>
                 </CardContent>
@@ -347,12 +406,12 @@ export default function ProfilePage() {
                     <Input id="newPassword" type="password" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="confirmPassword">Confirm New Password</Label>
+                    <Label htmlFor="confirmPassword">
+                      Confirm New Password
+                    </Label>
                     <Input id="confirmPassword" type="password" />
                   </div>
-                  <Button>
-                    Update Password
-                  </Button>
+                  <Button>Update Password</Button>
                 </CardContent>
               </Card>
 
@@ -371,9 +430,7 @@ export default function ProfilePage() {
                         Not enabled
                       </p>
                     </div>
-                    <Button variant="outline">
-                      Enable 2FA
-                    </Button>
+                    <Button variant="outline">Enable 2FA</Button>
                   </div>
                 </CardContent>
               </Card>

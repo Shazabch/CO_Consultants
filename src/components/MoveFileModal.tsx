@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Folder, FolderOpen, ChevronRight, ChevronDown } from "lucide-react";
@@ -20,10 +26,18 @@ interface FolderTreeItem extends FolderItem {
   isLoading?: boolean;
 }
 
-export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFileMoved }: MoveFileModalProps) {
+export default function MoveFileModal({
+  isOpen,
+  onClose,
+  fileId,
+  fileName,
+  onFileMoved,
+}: MoveFileModalProps) {
   const [folders, setFolders] = useState<FolderTreeItem[]>([]);
-  const [selectedFolderId, setSelectedFolderId] = useState<string>('');
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
+  const [selectedFolderId, setSelectedFolderId] = useState<string>("");
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
+    new Set()
+  );
   const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
@@ -36,17 +50,17 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
     try {
       const response = await apiService.getFolders();
       if (response.success) {
-        const foldersWithState = response.data.map(folder => ({
+        const foldersWithState = response.data.map((folder) => ({
           ...folder,
           children: [],
           isExpanded: false,
-          isLoading: false
+          isLoading: false,
         }));
         setFolders(foldersWithState);
       }
     } catch (error) {
-      console.error('Error loading folders:', error);
-      toast.error('Error loading folders');
+      console.error("Error loading folders:", error);
+      toast.error("Error loading folders");
     }
   };
 
@@ -54,33 +68,37 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
     try {
       const response = await apiService.getFolders(folderId);
       if (response.success) {
-        setFolders(prevFolders => 
+        setFolders((prevFolders) =>
           updateFolderInTree(prevFolders, folderId, {
-            children: response.data.map(folder => ({
+            children: response.data.map((folder) => ({
               ...folder,
               children: [],
               isExpanded: false,
-              isLoading: false
+              isLoading: false,
             })),
-            isLoading: false
+            isLoading: false,
           })
         );
       }
     } catch (error) {
-      console.error('Error loading subfolders:', error);
-      toast.error('Error loading subfolders');
+      console.error("Error loading subfolders:", error);
+      toast.error("Error loading subfolders");
     }
   };
 
-  const updateFolderInTree = (folders: FolderTreeItem[], folderId: string, updates: Partial<FolderTreeItem>): FolderTreeItem[] => {
-    return folders.map(folder => {
+  const updateFolderInTree = (
+    folders: FolderTreeItem[],
+    folderId: string,
+    updates: Partial<FolderTreeItem>
+  ): FolderTreeItem[] => {
+    return folders.map((folder) => {
       if (folder.id === folderId) {
         return { ...folder, ...updates };
       }
       if (folder.children && folder.children.length > 0) {
         return {
           ...folder,
-          children: updateFolderInTree(folder.children, folderId, updates)
+          children: updateFolderInTree(folder.children, folderId, updates),
         };
       }
       return folder;
@@ -90,24 +108,24 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
   const toggleFolder = async (folderId: string) => {
     const newExpanded = new Set(expandedFolders);
     const isCurrentlyExpanded = newExpanded.has(folderId);
-    
+
     if (isCurrentlyExpanded) {
       newExpanded.delete(folderId);
     } else {
       newExpanded.add(folderId);
       // Load subfolders when expanding
-      setFolders(prevFolders => 
+      setFolders((prevFolders) =>
         updateFolderInTree(prevFolders, folderId, { isLoading: true })
       );
       await loadSubfolders(folderId);
     }
-    
+
     setExpandedFolders(newExpanded);
   };
 
   const handleMove = async () => {
     if (!selectedFolderId) {
-      toast.error('Please select a destination folder');
+      toast.error("Please select a destination folder");
       return;
     }
 
@@ -115,15 +133,15 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
     try {
       const response = await apiService.moveFile(fileId, selectedFolderId);
       if (response.success) {
-        toast.success('File moved successfully');
+        toast.success("File moved successfully");
         onFileMoved();
         onClose();
       } else {
-        toast.error('Failed to move file');
+        toast.error("Failed to move file");
       }
     } catch (error) {
-      console.error('Error moving file:', error);
-      toast.error('Error moving file');
+      console.error("Error moving file:", error);
+      toast.error("Error moving file");
     } finally {
       setIsMoving(false);
     }
@@ -132,11 +150,11 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
   const renderFolder = (folder: FolderTreeItem, level = 0) => {
     const isExpanded = expandedFolders.has(folder.id);
     const isSelected = selectedFolderId === folder.id;
-    
+
     return (
       <div key={folder.id} className="space-y-1">
         <div className="flex items-center gap-1">
-          <button 
+          <button
             onClick={() => toggleFolder(folder.id)}
             className="p-0.5 hover:bg-muted rounded transition-colors"
             disabled={folder.isLoading}
@@ -149,12 +167,10 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
               <ChevronRight className="w-3 h-3 text-muted-foreground" />
             )}
           </button>
-          <button 
+          <button
             onClick={() => setSelectedFolderId(folder.id)}
             className={`flex items-center gap-2 px-2 py-1 text-sm w-full text-left rounded transition-colors ${
-              isSelected 
-                ? 'bg-brand text-brand-foreground' 
-                : 'hover:bg-muted'
+              isSelected ? "bg-panel text-panel-foreground" : "hover:bg-muted"
             }`}
             style={{ marginLeft: `${level * 16}px` }}
           >
@@ -166,10 +182,10 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
             <span className="truncate">{folder.name}</span>
           </button>
         </div>
-        
+
         {isExpanded && folder.children && folder.children.length > 0 && (
           <div className="ml-4">
-            {folder.children.map(child => renderFolder(child, level + 1))}
+            {folder.children.map((child) => renderFolder(child, level + 1))}
           </div>
         )}
       </div>
@@ -177,7 +193,7 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
   };
 
   const handleClose = () => {
-    setSelectedFolderId('');
+    setSelectedFolderId("");
     setExpandedFolders(new Set());
     onClose();
   };
@@ -191,23 +207,23 @@ export default function MoveFileModal({ isOpen, onClose, fileId, fileName, onFil
             Select a destination folder for "{fileName}"
           </DialogDescription>
         </DialogHeader>
-        
+
         <div className="space-y-4">
           <ScrollArea className="h-64 w-full border rounded-md p-2">
             <div className="space-y-1">
-              {folders.map(folder => renderFolder(folder))}
+              {folders.map((folder) => renderFolder(folder))}
             </div>
           </ScrollArea>
-          
+
           <div className="flex justify-between">
             <Button variant="outline" onClick={handleClose}>
               Cancel
             </Button>
-            <Button 
-              onClick={handleMove} 
+            <Button
+              onClick={handleMove}
               disabled={!selectedFolderId || isMoving}
             >
-              {isMoving ? 'Moving...' : 'Move File'}
+              {isMoving ? "Moving..." : "Move File"}
             </Button>
           </div>
         </div>

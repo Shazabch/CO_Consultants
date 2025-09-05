@@ -1,5 +1,15 @@
 import { useState, useEffect } from "react";
-import { Users, Download, Star, Trash2, FileText, Archive, Image, Video, File } from "lucide-react";
+import {
+  Users,
+  Download,
+  Star,
+  Trash2,
+  FileText,
+  Archive,
+  Image,
+  Video,
+  File,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { apiService, FileItem } from "@/services/api";
@@ -7,15 +17,15 @@ import { apiService, FileItem } from "@/services/api";
 const getFileIcon = (type: string) => {
   const iconClass = "w-4 h-4 text-muted-foreground mr-2";
   switch (type) {
-    case 'document':
+    case "document":
       return <FileText className={iconClass} />;
-    case 'zip':
+    case "zip":
       return <Archive className={iconClass} />;
-    case 'image':
+    case "image":
       return <Image className={iconClass} />;
-    case 'video':
+    case "video":
       return <Video className={iconClass} />;
-    case 'folder':
+    case "folder":
       return <File className={iconClass} />;
     default:
       return <File className={iconClass} />;
@@ -37,11 +47,11 @@ export default function SharedPage() {
       if (response.success) {
         setSharedFiles(response.data);
       } else {
-        toast.error('Failed to load shared files');
+        toast.error("Failed to load shared files");
       }
     } catch (error) {
-      console.error('Error loading shared files:', error);
-      toast.error('Error loading shared files');
+      console.error("Error loading shared files:", error);
+      toast.error("Error loading shared files");
     } finally {
       setLoading(false);
     }
@@ -52,13 +62,13 @@ export default function SharedPage() {
       const response = await apiService.starFile(fileId);
       if (response.success) {
         loadSharedFiles(); // Reload to get updated star status
-        toast.success('File starred successfully');
+        toast.success("File starred successfully");
       } else {
-        toast.error('Failed to star file');
+        toast.error("Failed to star file");
       }
     } catch (error) {
-      console.error('Error starring file:', error);
-      toast.error('Error starring file');
+      console.error("Error starring file:", error);
+      toast.error("Error starring file");
     }
   };
 
@@ -67,13 +77,13 @@ export default function SharedPage() {
       const response = await apiService.moveToTrash(fileId);
       if (response.success) {
         loadSharedFiles(); // Reload files
-        toast.success('File moved to trash');
+        toast.success("File moved to trash");
       } else {
-        toast.error('Failed to move file to trash');
+        toast.error("Failed to move file to trash");
       }
     } catch (error) {
-      console.error('Error moving file to trash:', error);
-      toast.error('Error moving file to trash');
+      console.error("Error moving file to trash:", error);
+      toast.error("Error moving file to trash");
     }
   };
 
@@ -81,8 +91,10 @@ export default function SharedPage() {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-2">
-          <Users className="w-6 h-6 text-brand" />
-          <h1 className="text-2xl font-semibold text-foreground">Shared with me</h1>
+          <Users className="w-6 h-6 text-panel" />
+          <h1 className="text-2xl font-semibold text-foreground">
+            Shared with me
+          </h1>
         </div>
         <div className="text-center py-8 text-muted-foreground">
           Loading shared files...
@@ -94,14 +106,18 @@ export default function SharedPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2">
-        <Users className="w-6 h-6 text-brand" />
-        <h1 className="text-2xl font-semibold text-foreground">Shared with me</h1>
+        <Users className="w-6 h-6 text-panel" />
+        <h1 className="text-2xl font-semibold text-foreground">
+          Shared with me
+        </h1>
       </div>
 
       {sharedFiles.length === 0 ? (
         <div className="text-center py-12">
           <Users className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-          <h3 className="text-lg font-medium text-foreground mb-2">No shared files</h3>
+          <h3 className="text-lg font-medium text-foreground mb-2">
+            No shared files
+          </h3>
           <p className="text-muted-foreground">
             Files shared with you by others will appear here.
           </p>
@@ -117,17 +133,22 @@ export default function SharedPage() {
               <div>Actions</div>
             </div>
           </div>
-          
+
           <div className="divide-y divide-border">
             {sharedFiles.map((file) => (
-              <div key={file.id} className="px-4 py-3 hover:bg-muted/50 cursor-pointer group">
+              <div
+                key={file.id}
+                className="px-4 py-3 hover:bg-muted/50 cursor-pointer group"
+              >
                 <div className="grid grid-cols-5 gap-4 text-sm">
                   <div className="flex items-center">
                     {getFileIcon(file.type)}
                     <span className="text-foreground">{file.name}</span>
                   </div>
                   <div className="text-muted-foreground">{file.owner}</div>
-                  <div className="text-muted-foreground">{file.lastModified}</div>
+                  <div className="text-muted-foreground">
+                    {file.lastModified}
+                  </div>
                   <div className="text-muted-foreground">{file.size}</div>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     <Button
@@ -135,7 +156,7 @@ export default function SharedPage() {
                       size="sm"
                       onClick={(e) => {
                         e.stopPropagation();
-                        toast.info('Download functionality coming soon');
+                        toast.info("Download functionality coming soon");
                       }}
                       className="h-8 w-8 p-0"
                       title="Download"

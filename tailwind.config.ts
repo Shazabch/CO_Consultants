@@ -19,10 +19,10 @@ export default {
     },
     extend: {
       colors: {
-							 brand: {
-      DEFAULT: "#FF0000", // 👈 ab bg-brand kaam karega
-      foreground: "#ffffff", // 👈 text-brand-foreground bhi kaam karega
-    },
+        panel: {
+          DEFAULT: "#FF0000", // 👈 ab bg-panel kaam karega
+          foreground: "#ffffff", // 👈 text-panel-foreground bhi kaam karega
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -73,7 +73,6 @@ export default {
           accent: "#C8C8C9",
           muted: "#F1F1F1",
         },
-   
       },
       spacing: {
         18: "4.5rem",

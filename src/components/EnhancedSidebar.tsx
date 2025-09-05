@@ -1,6 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown, ChevronRight, Folder, FolderOpen, Home, Users, Star, Trash2, Upload, User, FileText, Download } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Folder,
+  FolderOpen,
+  Home,
+  Users,
+  Star,
+  Trash2,
+  Upload,
+  User,
+  FileText,
+  Download,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { apiService, FolderItem, FileItem } from "@/services/api";
 import { toast } from "sonner";
@@ -20,12 +33,14 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
-  
+
   const [folders, setFolders] = useState<FolderTreeItem[]>([]);
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
-  
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
+    new Set()
+  );
+
   const isActive = (path: string) => currentPath === path;
-  
+
   useEffect(() => {
     loadFolders();
   }, []);
@@ -34,18 +49,18 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
     try {
       const response = await apiService.getFolders();
       if (response.success) {
-        const foldersWithState = response.data.map(folder => ({
+        const foldersWithState = response.data.map((folder) => ({
           ...folder,
           children: [],
           files: [],
           isExpanded: false,
-          isLoading: false
+          isLoading: false,
         }));
         setFolders(foldersWithState);
       }
     } catch (error) {
-      console.error('Error loading folders:', error);
-      toast.error('Error loading folders');
+      console.error("Error loading folders:", error);
+      toast.error("Error loading folders");
     }
   };
 
@@ -55,37 +70,41 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
       const foldersResponse = await apiService.getFolders(folderId);
       // Load files
       const filesResponse = await apiService.getFiles(folderId);
-      
+
       if (foldersResponse.success && filesResponse.success) {
-        setFolders(prevFolders => 
+        setFolders((prevFolders) =>
           updateFolderInTree(prevFolders, folderId, {
-            children: foldersResponse.data.map(folder => ({
+            children: foldersResponse.data.map((folder) => ({
               ...folder,
               children: [],
               files: [],
               isExpanded: false,
-              isLoading: false
+              isLoading: false,
             })),
             files: filesResponse.data,
-            isLoading: false
+            isLoading: false,
           })
         );
       }
     } catch (error) {
-      console.error('Error loading folder contents:', error);
-      toast.error('Error loading folder contents');
+      console.error("Error loading folder contents:", error);
+      toast.error("Error loading folder contents");
     }
   };
 
-  const updateFolderInTree = (folders: FolderTreeItem[], folderId: string, updates: Partial<FolderTreeItem>): FolderTreeItem[] => {
-    return folders.map(folder => {
+  const updateFolderInTree = (
+    folders: FolderTreeItem[],
+    folderId: string,
+    updates: Partial<FolderTreeItem>
+  ): FolderTreeItem[] => {
+    return folders.map((folder) => {
       if (folder.id === folderId) {
         return { ...folder, ...updates };
       }
       if (folder.children && folder.children.length > 0) {
         return {
           ...folder,
-          children: updateFolderInTree(folder.children, folderId, updates)
+          children: updateFolderInTree(folder.children, folderId, updates),
         };
       }
       return folder;
@@ -95,18 +114,18 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
   const toggleFolder = async (folderId: string) => {
     const newExpanded = new Set(expandedFolders);
     const isCurrentlyExpanded = newExpanded.has(folderId);
-    
+
     if (isCurrentlyExpanded) {
       newExpanded.delete(folderId);
     } else {
       newExpanded.add(folderId);
       // Load folder contents when expanding
-      setFolders(prevFolders => 
+      setFolders((prevFolders) =>
         updateFolderInTree(prevFolders, folderId, { isLoading: true })
       );
       await loadFolderContents(folderId);
     }
-    
+
     setExpandedFolders(newExpanded);
   };
 
@@ -116,7 +135,7 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
 
   const handleFileClick = (fileId: string) => {
     // Navigate to file view or open file
-    console.log('File clicked:', fileId);
+    console.log("File clicked:", fileId);
   };
 
   const handleDownload = async (fileId: string, fileName: string) => {
@@ -125,29 +144,29 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
       if (response.success) {
         toast.success(`Downloaded ${fileName}`);
       } else {
-        toast.error('Failed to download file');
+        toast.error("Failed to download file");
       }
     } catch (error) {
-      console.error('Error downloading file:', error);
-      toast.error('Error downloading file');
+      console.error("Error downloading file:", error);
+      toast.error("Error downloading file");
     }
   };
 
   const handleDrop = async (e: React.DragEvent, folderId: string) => {
     e.preventDefault();
-    const fileId = e.dataTransfer.getData('text/plain');
-    
+    const fileId = e.dataTransfer.getData("text/plain");
+
     try {
       const response = await apiService.moveFile(fileId, folderId);
       if (response.success) {
-        toast.success('File moved successfully');
-        window.dispatchEvent(new CustomEvent('filesMoved'));
+        toast.success("File moved successfully");
+        window.dispatchEvent(new CustomEvent("filesMoved"));
       } else {
-        toast.error('Failed to move file');
+        toast.error("Failed to move file");
       }
     } catch (error) {
-      console.error('Error moving file:', error);
-      toast.error('Error moving file');
+      console.error("Error moving file:", error);
+      toast.error("Error moving file");
     }
   };
 
@@ -157,9 +176,13 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
 
   const renderFile = (file: FileItem, level: number) => {
     return (
-      <div key={file.id} className="flex items-center gap-1" style={{ marginLeft: `${(level + 1) * 16}px` }}>
+      <div
+        key={file.id}
+        className="flex items-center gap-1"
+        style={{ marginLeft: `${(level + 1) * 16}px` }}
+      >
         <div className="w-3 h-3" /> {/* Spacer for alignment */}
-        <button 
+        <button
           onClick={() => handleFileClick(file.id)}
           className="flex items-center gap-2 px-2 py-1 text-sm w-full text-left rounded transition-colors text-sidebar-foreground hover:bg-sidebar-accent/50 group"
         >
@@ -184,11 +207,11 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
   const renderFolder = (folder: FolderTreeItem, level = 0) => {
     const isExpanded = expandedFolders.has(folder.id);
     const isCurrentFolder = currentPath === `/folder/${folder.id}`;
-    
+
     return (
       <div key={folder.id} className="space-y-1">
         <div className="flex items-center gap-1">
-          <button 
+          <button
             onClick={() => toggleFolder(folder.id)}
             className="p-0.5 hover:bg-sidebar-accent rounded transition-colors"
             disabled={folder.isLoading}
@@ -201,33 +224,35 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
               <ChevronRight className="w-3 h-3 text-sidebar-foreground/60" />
             )}
           </button>
-          <button 
+          <button
             onClick={() => handleFolderClick(folder.id)}
             onDrop={(e) => handleDrop(e, folder.id)}
             onDragOver={handleDragOver}
             className={`flex items-center gap-2 px-2 py-1 text-sm w-full text-left rounded transition-colors ${
-              isCurrentFolder 
-                ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
-                : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+              isCurrentFolder
+                ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                : "text-sidebar-foreground hover:bg-sidebar-accent/50"
             }`}
             style={{ marginLeft: `${level * 16}px` }}
           >
             {isExpanded ? (
-              <FolderOpen className="w-4 h-4 text-brand" />
+              <FolderOpen className="w-4 h-4 text-panel" />
             ) : (
-              <Folder className="w-4 h-4 text-brand" />
+              <Folder className="w-4 h-4 text-panel" />
             )}
             <span className="truncate">{folder.name}</span>
           </button>
         </div>
-        
+
         {isExpanded && (
           <div className="space-y-1">
             {/* Render subfolders */}
-            {folder.children && folder.children.map(child => renderFolder(child, level + 1))}
-            
+            {folder.children &&
+              folder.children.map((child) => renderFolder(child, level + 1))}
+
             {/* Render files */}
-            {folder.files && folder.files.map(file => renderFile(file, level + 1))}
+            {folder.files &&
+              folder.files.map((file) => renderFile(file, level + 1))}
           </div>
         )}
       </div>
@@ -239,16 +264,16 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
     const handleFolderCreated = () => {
       loadFolders();
     };
-    
+
     const handleFilesMoved = () => {
       loadFolders();
     };
-    
-    window.addEventListener('folderCreated', handleFolderCreated);
-    window.addEventListener('filesMoved', handleFilesMoved);
+
+    window.addEventListener("folderCreated", handleFolderCreated);
+    window.addEventListener("filesMoved", handleFilesMoved);
     return () => {
-      window.removeEventListener('folderCreated', handleFolderCreated);
-      window.removeEventListener('filesMoved', handleFilesMoved);
+      window.removeEventListener("folderCreated", handleFolderCreated);
+      window.removeEventListener("filesMoved", handleFilesMoved);
     };
   }, []);
 
@@ -257,10 +282,12 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
       {/* Logo */}
       <div className="p-4 border-b border-sidebar-border">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center text-brand-foreground font-bold text-sm">
+          <div className="w-8 h-8 bg-panel rounded-full flex items-center justify-center text-panel-foreground font-bold text-sm">
             CV
           </div>
-          <span className="font-semibold text-sidebar-foreground">CloudVault</span>
+          <span className="font-semibold text-sidebar-foreground">
+            CloudVault
+          </span>
         </div>
       </div>
 
@@ -268,67 +295,67 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
       <div className="flex-1 p-4 overflow-y-auto">
         <nav className="space-y-1">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className={`flex items-center gap-2 px-3 py-2 w-full text-left rounded-md transition-colors ${
-              isActive('/') 
-                ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
-                : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+              isActive("/")
+                ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                : "text-sidebar-foreground hover:bg-sidebar-accent/50"
             }`}
           >
             <Home className="w-4 h-4" />
             <span className="text-sm">Home</span>
           </button>
-          
+
           <div className="mt-6">
             <div className="px-3 py-1 text-xs font-medium text-sidebar-foreground/60 uppercase tracking-wide">
               My Files
             </div>
-            
+
             <div className="mt-2 space-y-1">
-              {folders.map(folder => renderFolder(folder))}
+              {folders.map((folder) => renderFolder(folder))}
             </div>
           </div>
 
           <div className="mt-8 space-y-1">
             <button
-              onClick={() => navigate('/shared')}
+              onClick={() => navigate("/shared")}
               className={`flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors ${
-                isActive('/shared') 
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                isActive("/shared")
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                  : "text-sidebar-foreground hover:bg-sidebar-accent/50"
               }`}
             >
               <Users className="w-4 h-4" />
               <span>Shared with me</span>
             </button>
             <button
-              onClick={() => navigate('/starred')}
+              onClick={() => navigate("/starred")}
               className={`flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors ${
-                isActive('/starred') 
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                isActive("/starred")
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                  : "text-sidebar-foreground hover:bg-sidebar-accent/50"
               }`}
             >
               <Star className="w-4 h-4" />
               <span>Starred</span>
             </button>
             <button
-              onClick={() => navigate('/trash')}
+              onClick={() => navigate("/trash")}
               className={`flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors ${
-                isActive('/trash') 
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                isActive("/trash")
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                  : "text-sidebar-foreground hover:bg-sidebar-accent/50"
               }`}
             >
               <Trash2 className="w-4 h-4" />
               <span>Trash</span>
             </button>
             <button
-              onClick={() => navigate('/profile')}
+              onClick={() => navigate("/profile")}
               className={`flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md transition-colors ${
-                isActive('/profile') 
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                isActive("/profile")
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                  : "text-sidebar-foreground hover:bg-sidebar-accent/50"
               }`}
             >
               <User className="w-4 h-4" />
@@ -340,8 +367,8 @@ export default function EnhancedSidebar({ onUploadClick }: SidebarProps) {
 
       {/* Upload Button */}
       <div className="p-4 border-t border-sidebar-border">
-        <Button 
-          className="w-full bg-brand hover:bg-brand/90 text-brand-foreground"
+        <Button
+          className="w-full bg-panel hover:bg-panel/90 text-panel-foreground"
           onClick={onUploadClick}
         >
           <Upload className="w-4 h-4 mr-2" />

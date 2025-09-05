@@ -1,6 +1,24 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { Search, Bell, ChevronDown, ChevronRight, Folder, FolderOpen, Home, Users, Star, Trash2, Upload, Menu, FileText, Archive, Image, Video, File } from "lucide-react";
+import {
+  Search,
+  Bell,
+  ChevronDown,
+  ChevronRight,
+  Folder,
+  FolderOpen,
+  Home,
+  Users,
+  Star,
+  Trash2,
+  Upload,
+  Menu,
+  FileText,
+  Archive,
+  Image,
+  Video,
+  File,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -13,15 +31,15 @@ import { apiService, FileItem, FolderItem } from "@/services/api";
 const getFileIcon = (type: string) => {
   const iconClass = "w-4 h-4 text-muted-foreground mr-2";
   switch (type) {
-    case 'document':
+    case "document":
       return <FileText className={iconClass} />;
-    case 'zip':
+    case "zip":
       return <Archive className={iconClass} />;
-    case 'image':
+    case "image":
       return <Image className={iconClass} />;
-    case 'video':
+    case "video":
       return <Video className={iconClass} />;
-    case 'folder':
+    case "folder":
       return <Folder className={iconClass} />;
     default:
       return <File className={iconClass} />;
@@ -36,7 +54,7 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { folderId } = useParams();
-  
+
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isClientProjectsOpen, setIsClientProjectsOpen] = useState(true);
   const [files, setFiles] = useState<FileItem[]>([]);
@@ -45,29 +63,29 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
   const [isNewFolderModalOpen, setIsNewFolderModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   const currentPath = location.pathname;
-  
+
   const getBreadcrumbPath = () => {
     switch (currentPath) {
-      case '/starred':
-        return [{ name: 'Starred', path: '/starred' }];
-      case '/shared':
-        return [{ name: 'Shared with me', path: '/shared' }];
-      case '/trash':
-        return [{ name: 'Trash', path: '/trash' }];
-      case '/':
+      case "/starred":
+        return [{ name: "Starred", path: "/starred" }];
+      case "/shared":
+        return [{ name: "Shared with me", path: "/shared" }];
+      case "/trash":
+        return [{ name: "Trash", path: "/trash" }];
+      case "/":
       default:
         return [
-          { name: 'My Files', path: '/' },
-          { name: 'Client Projects', path: '/folder/client-projects' },
-          { name: 'Project Alpha', path: '/folder/project-alpha' }
+          { name: "My Files", path: "/" },
+          { name: "Client Projects", path: "/folder/client-projects" },
+          { name: "Project Alpha", path: "/folder/project-alpha" },
         ];
     }
   };
-  
+
   const isActive = (path: string) => currentPath === path;
-  
+
   // Load data on component mount and when folderId changes
   useEffect(() => {
     loadFiles();
@@ -81,11 +99,11 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
       if (response.success) {
         setFiles(response.data);
       } else {
-        toast.error('Failed to load files');
+        toast.error("Failed to load files");
       }
     } catch (error) {
-      console.error('Error loading files:', error);
-      toast.error('Error loading files');
+      console.error("Error loading files:", error);
+      toast.error("Error loading files");
     } finally {
       setLoading(false);
     }
@@ -97,11 +115,11 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
       if (response.success) {
         setFolders(response.data);
       } else {
-        toast.error('Failed to load folders');
+        toast.error("Failed to load folders");
       }
     } catch (error) {
-      console.error('Error loading folders:', error);
-      toast.error('Error loading folders');
+      console.error("Error loading folders:", error);
+      toast.error("Error loading folders");
     }
   };
 
@@ -110,32 +128,32 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
     try {
       const response = await apiService.uploadFile(file, folderId);
       if (response.success) {
-        setFiles(prev => [response.data, ...prev]);
-        toast.success('File uploaded successfully');
+        setFiles((prev) => [response.data, ...prev]);
+        toast.success("File uploaded successfully");
       } else {
-        toast.error('Failed to upload file');
+        toast.error("Failed to upload file");
       }
     } catch (error) {
-      console.error('Error uploading file:', error);
-      toast.error('Error uploading file');
+      console.error("Error uploading file:", error);
+      toast.error("Error uploading file");
     } finally {
       setLoading(false);
     }
   };
-  
+
   const handleFolderCreated = async (folderName: string) => {
     setLoading(true);
     try {
       const response = await apiService.createFolder(folderName, folderId);
       if (response.success) {
-        setFolders(prev => [response.data, ...prev]);
-        toast.success('Folder created successfully');
+        setFolders((prev) => [response.data, ...prev]);
+        toast.success("Folder created successfully");
       } else {
-        toast.error('Failed to create folder');
+        toast.error("Failed to create folder");
       }
     } catch (error) {
-      console.error('Error creating folder:', error);
-      toast.error('Error creating folder');
+      console.error("Error creating folder:", error);
+      toast.error("Error creating folder");
     } finally {
       setLoading(false);
     }
@@ -146,13 +164,13 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
       const response = await apiService.starFile(fileId);
       if (response.success) {
         loadFiles(); // Reload files to get updated star status
-        toast.success('File starred successfully');
+        toast.success("File starred successfully");
       } else {
-        toast.error('Failed to star file');
+        toast.error("Failed to star file");
       }
     } catch (error) {
-      console.error('Error starring file:', error);
-      toast.error('Error starring file');
+      console.error("Error starring file:", error);
+      toast.error("Error starring file");
     }
   };
 
@@ -161,13 +179,13 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
       const response = await apiService.moveToTrash(fileId);
       if (response.success) {
         loadFiles(); // Reload files
-        toast.success('File moved to trash');
+        toast.success("File moved to trash");
       } else {
-        toast.error('Failed to move file to trash');
+        toast.error("Failed to move file to trash");
       }
     } catch (error) {
-      console.error('Error moving file to trash:', error);
-      toast.error('Error moving file to trash');
+      console.error("Error moving file to trash:", error);
+      toast.error("Error moving file to trash");
     }
   };
 
@@ -176,23 +194,23 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
       loadFiles();
       return;
     }
-    
+
     setLoading(true);
     try {
       const response = await apiService.searchFiles(query);
       if (response.success) {
         setFiles(response.data);
       } else {
-        toast.error('Search failed');
+        toast.error("Search failed");
       }
     } catch (error) {
-      console.error('Error searching files:', error);
-      toast.error('Error searching files');
+      console.error("Error searching files:", error);
+      toast.error("Error searching files");
     } finally {
       setLoading(false);
     }
   };
-  
+
   // Handle search input changes
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -201,19 +219,27 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
 
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
-  
+
   return (
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
-      <div className={`${isSidebarCollapsed ? 'w-16' : 'w-60'} bg-sidebar-background border-r border-sidebar-border flex flex-col transition-all duration-300`}>
+      <div
+        className={`${
+          isSidebarCollapsed ? "w-16" : "w-60"
+        } bg-sidebar-background border-r border-sidebar-border flex flex-col transition-all duration-300`}
+      >
         {/* Logo and Collapse Button */}
         <div className="p-4 border-b border-sidebar-border">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center text-brand-foreground font-bold text-sm">
+              <div className="w-8 h-8 bg-panel rounded-full flex items-center justify-center text-panel-foreground font-bold text-sm">
                 CV
               </div>
-              {!isSidebarCollapsed && <span className="font-semibold text-sidebar-foreground">CloudVault</span>}
+              {!isSidebarCollapsed && (
+                <span className="font-semibold text-sidebar-foreground">
+                  CloudVault
+                </span>
+              )}
             </div>
             <Button
               variant="ghost"
@@ -230,28 +256,30 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
         <div className="flex-1 p-4">
           <nav className="space-y-1">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
               className={`flex items-center gap-2 px-3 py-2 w-full text-left rounded-md cursor-pointer transition-colors ${
-                isActive('/') 
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
-                  : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                isActive("/")
+                  ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                  : "text-sidebar-foreground hover:bg-sidebar-accent/50"
               }`}
             >
               <Home className="w-4 h-4" />
               {!isSidebarCollapsed && <span className="text-sm">Home</span>}
             </button>
-            
+
             {!isSidebarCollapsed && (
               <div className="mt-6">
                 <div className="px-3 py-1 text-xs font-medium text-sidebar-foreground/60 uppercase tracking-wide">
                   My Files
                 </div>
-                
+
                 <div className="mt-2 space-y-1">
                   {folders.map((folder) => (
                     <div key={folder.id} className="flex items-center gap-1">
-                      <button 
-                        onClick={() => setIsClientProjectsOpen(!isClientProjectsOpen)}
+                      <button
+                        onClick={() =>
+                          setIsClientProjectsOpen(!isClientProjectsOpen)
+                        }
                         className="p-0.5 hover:bg-sidebar-accent rounded"
                       >
                         {isClientProjectsOpen ? (
@@ -260,7 +288,7 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
                           <ChevronRight className="w-3 h-3 text-sidebar-foreground/60" />
                         )}
                       </button>
-                      <button 
+                      <button
                         onClick={() => navigate(`/folder/${folder.id}`)}
                         className="flex items-center gap-2 px-2 py-1 text-sm text-sidebar-foreground hover:bg-sidebar-accent rounded cursor-pointer w-full text-left"
                       >
@@ -279,33 +307,33 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
 
             <div className="mt-8 space-y-1">
               <button
-                onClick={() => navigate('/shared')}
+                onClick={() => navigate("/shared")}
                 className={`flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md cursor-pointer transition-colors ${
-                  isActive('/shared') 
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
-                    : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                  isActive("/shared")
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/50"
                 }`}
               >
                 <Users className="w-4 h-4" />
                 {!isSidebarCollapsed && <span>Shared with me</span>}
               </button>
               <button
-                onClick={() => navigate('/starred')}
+                onClick={() => navigate("/starred")}
                 className={`flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md cursor-pointer transition-colors ${
-                  isActive('/starred') 
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
-                    : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                  isActive("/starred")
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/50"
                 }`}
               >
                 <Star className="w-4 h-4" />
                 {!isSidebarCollapsed && <span>Starred</span>}
               </button>
               <button
-                onClick={() => navigate('/trash')}
+                onClick={() => navigate("/trash")}
                 className={`flex items-center gap-2 px-3 py-2 text-sm w-full rounded-md cursor-pointer transition-colors ${
-                  isActive('/trash') 
-                    ? 'bg-sidebar-accent text-sidebar-accent-foreground' 
-                    : 'text-sidebar-foreground hover:bg-sidebar-accent/50'
+                  isActive("/trash")
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/50"
                 }`}
               >
                 <Trash2 className="w-4 h-4" />
@@ -317,8 +345,10 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
 
         {/* New Upload Button */}
         <div className="p-4 border-t border-sidebar-border">
-          <Button 
-            className={`w-full bg-brand hover:bg-brand/90 text-brand-foreground ${isSidebarCollapsed ? 'px-2' : ''}`}
+          <Button
+            className={`w-full bg-panel hover:bg-panel/90 text-panel-foreground ${
+              isSidebarCollapsed ? "px-2" : ""
+            }`}
             onClick={() => setIsUploadModalOpen(true)}
           >
             <Upload className="w-4 h-4" />
@@ -337,10 +367,12 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
               {getBreadcrumbPath().map((crumb, index) => (
                 <div key={crumb.path} className="flex items-center gap-2">
                   {index > 0 && <ChevronRight className="w-4 h-4" />}
-                  <button 
+                  <button
                     onClick={() => navigate(crumb.path)}
                     className={`hover:text-foreground transition-colors ${
-                      index === getBreadcrumbPath().length - 1 ? 'text-foreground font-medium' : ''
+                      index === getBreadcrumbPath().length - 1
+                        ? "text-foreground font-medium"
+                        : ""
                     }`}
                   >
                     {crumb.name}
@@ -354,21 +386,23 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
             {/* Search */}
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-cloudvault-text-secondary" />
-              <Input 
-                placeholder="Search files..." 
+              <Input
+                placeholder="Search files..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 w-64 bg-input border-border"
                 disabled={loading}
               />
             </div>
-            
+
             {/* Notifications */}
             <NotificationDropdown />
-            
+
             {/* User Avatar */}
             <Avatar>
-              <AvatarFallback className="bg-brand text-brand-foreground">U</AvatarFallback>
+              <AvatarFallback className="bg-panel text-panel-foreground">
+                U
+              </AvatarFallback>
             </Avatar>
           </div>
         </header>
@@ -380,7 +414,9 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
               {/* Page Header */}
               <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-semibold text-foreground">
-                  {currentPath === '/' ? 'Project Alpha' : getBreadcrumbPath()[getBreadcrumbPath().length - 1]?.name}
+                  {currentPath === "/"
+                    ? "Project Alpha"
+                    : getBreadcrumbPath()[getBreadcrumbPath().length - 1]?.name}
                 </h1>
               </div>
 
@@ -389,17 +425,17 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg font-medium text-foreground">Files</h2>
                   <div className="flex items-center gap-2">
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       size="sm"
                       onClick={() => setIsNewFolderModalOpen(true)}
                     >
                       <Folder className="w-4 h-4 mr-2" />
                       New Folder
                     </Button>
-                    <Button 
-                      size="sm" 
-                      className="bg-brand hover:bg-brand/90 text-brand-foreground"
+                    <Button
+                      size="sm"
+                      className="bg-panel hover:bg-panel/90 text-panel-foreground"
                       onClick={() => setIsUploadModalOpen(true)}
                     >
                       <Upload className="w-4 h-4 mr-2" />
@@ -412,13 +448,15 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
                 {folders.length > 0 && (
                   <div className="grid grid-cols-4 gap-4 mb-4">
                     {folders.map((folder) => (
-                      <button 
+                      <button
                         key={folder.id}
                         onClick={() => navigate(`/folder/${folder.id}`)}
                         className="flex items-center gap-2 p-3 border border-border rounded-lg hover:bg-muted/50 cursor-pointer text-left"
                       >
-                        <Folder className="w-5 h-5 text-brand" />
-                        <span className="text-sm font-medium truncate">{folder.name}</span>
+                        <Folder className="w-5 h-5 text-panel" />
+                        <span className="text-sm font-medium truncate">
+                          {folder.name}
+                        </span>
                       </button>
                     ))}
                   </div>
@@ -434,7 +472,7 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
                       <div>File Size</div>
                     </div>
                   </div>
-                  
+
                   <div className="divide-y divide-border">
                     {loading ? (
                       <div className="px-4 py-8 text-center text-muted-foreground">
@@ -446,16 +484,27 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
                       </div>
                     ) : (
                       files.map((file) => (
-                        <div key={file.id} className="px-4 py-3 hover:bg-muted/50 cursor-pointer group">
+                        <div
+                          key={file.id}
+                          className="px-4 py-3 hover:bg-muted/50 cursor-pointer group"
+                        >
                           <div className="grid grid-cols-4 gap-4 text-sm">
                             <div className="flex items-center">
                               {getFileIcon(file.type)}
-                              <span className="text-foreground">{file.name}</span>
+                              <span className="text-foreground">
+                                {file.name}
+                              </span>
                             </div>
-                            <div className="text-muted-foreground">{file.owner}</div>
-                            <div className="text-muted-foreground">{file.lastModified}</div>
+                            <div className="text-muted-foreground">
+                              {file.owner}
+                            </div>
+                            <div className="text-muted-foreground">
+                              {file.lastModified}
+                            </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">{file.size}</span>
+                              <span className="text-muted-foreground">
+                                {file.size}
+                              </span>
                               <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <Button
                                   variant="ghost"
@@ -498,14 +547,18 @@ export default function CloudVaultLayout({ children }: CloudVaultLayoutProps) {
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
         onFileUploaded={handleFileUploaded}
-        currentFolder={getBreadcrumbPath().map(p => p.name).join(' / ')}
+        currentFolder={getBreadcrumbPath()
+          .map((p) => p.name)
+          .join(" / ")}
       />
-      
+
       <NewFolderModal
         isOpen={isNewFolderModalOpen}
         onClose={() => setIsNewFolderModalOpen(false)}
         onFolderCreated={handleFolderCreated}
-        currentPath={getBreadcrumbPath().map(p => p.name).join(' / ')}
+        currentPath={getBreadcrumbPath()
+          .map((p) => p.name)
+          .join(" / ")}
       />
     </div>
   );

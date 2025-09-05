@@ -1,9 +1,33 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { MoreHorizontal, Star, Download, Trash2, Share2, FileText, Image, Video, Archive, Folder, ArrowRightLeft } from "lucide-react";
+import {
+  MoreHorizontal,
+  Star,
+  Download,
+  Trash2,
+  Share2,
+  FileText,
+  Image,
+  Video,
+  Archive,
+  Folder,
+  ArrowRightLeft,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { apiService, FileItem } from "@/services/api";
@@ -15,13 +39,18 @@ interface EnhancedFileListProps {
   onFolderCreated?: () => void;
 }
 
-export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps) {
+export default function EnhancedFileList({
+  searchQuery,
+}: EnhancedFileListProps) {
   const { folderId } = useParams();
   const [files, setFiles] = useState<FileItem[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
   const [moveModalOpen, setMoveModalOpen] = useState(false);
-  const [selectedFileForMove, setSelectedFileForMove] = useState<{ id: string; name: string } | null>(null);
+  const [selectedFileForMove, setSelectedFileForMove] = useState<{
+    id: string;
+    name: string;
+  } | null>(null);
 
   useEffect(() => {
     loadFiles();
@@ -31,7 +60,7 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
     const handleFileUploaded = () => {
       loadFiles();
     };
-    
+
     const handleFolderCreated = () => {
       loadFiles();
     };
@@ -40,14 +69,14 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
       loadFiles();
     };
 
-    window.addEventListener('fileUploaded', handleFileUploaded);
-    window.addEventListener('folderCreated', handleFolderCreated);
-    window.addEventListener('filesMoved', handleFilesMoved);
-    
+    window.addEventListener("fileUploaded", handleFileUploaded);
+    window.addEventListener("folderCreated", handleFolderCreated);
+    window.addEventListener("filesMoved", handleFilesMoved);
+
     return () => {
-      window.removeEventListener('fileUploaded', handleFileUploaded);
-      window.removeEventListener('folderCreated', handleFolderCreated);
-      window.removeEventListener('filesMoved', handleFilesMoved);
+      window.removeEventListener("fileUploaded", handleFileUploaded);
+      window.removeEventListener("folderCreated", handleFolderCreated);
+      window.removeEventListener("filesMoved", handleFilesMoved);
     };
   }, []);
 
@@ -59,47 +88,46 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
         setFiles(response.data);
       }
     } catch (error) {
-      console.error('Error loading files:', error);
-      toast.error('Error loading files');
+      console.error("Error loading files:", error);
+      toast.error("Error loading files");
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredFiles = files.filter(file =>
-    file.name.toLowerCase().includes(searchQuery?.toLowerCase() || '')
+  const filteredFiles = files.filter((file) =>
+    file.name.toLowerCase().includes(searchQuery?.toLowerCase() || "")
   );
 
   const getFileIcon = (type: string) => {
     switch (type) {
-      case 'document':
+      case "document":
         return <FileText className="w-4 h-4 text-blue-500" />;
-      case 'image':
+      case "image":
         return <Image className="w-4 h-4 text-green-500" />;
-      case 'video':
+      case "video":
         return <Video className="w-4 h-4 text-purple-500" />;
-      case 'zip':
+      case "zip":
         return <Archive className="w-4 h-4 text-orange-500" />;
-      case 'folder':
+      case "folder":
         return <Folder className="w-4 h-4 text-blue-600" />;
       default:
         return <FileText className="w-4 h-4 text-gray-500" />;
     }
   };
 
-
   const handleStarFile = async (fileId: string) => {
     try {
       const response = await apiService.starFile(fileId);
       if (response.success) {
-        toast.success('File starred');
+        toast.success("File starred");
         loadFiles();
       } else {
-        toast.error('Failed to star file');
+        toast.error("Failed to star file");
       }
     } catch (error) {
-      console.error('Error starring file:', error);
-      toast.error('Error starring file');
+      console.error("Error starring file:", error);
+      toast.error("Error starring file");
     }
   };
 
@@ -109,11 +137,11 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
       if (response.success) {
         toast.success(`Downloaded ${fileName}`);
       } else {
-        toast.error('Failed to download file');
+        toast.error("Failed to download file");
       }
     } catch (error) {
-      console.error('Error downloading file:', error);
-      toast.error('Error downloading file');
+      console.error("Error downloading file:", error);
+      toast.error("Error downloading file");
     }
   };
 
@@ -126,42 +154,42 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
     try {
       const response = await apiService.moveToTrash(fileId);
       if (response.success) {
-        toast.success('File moved to trash');
+        toast.success("File moved to trash");
         loadFiles();
       } else {
-        toast.error('Failed to move file to trash');
+        toast.error("Failed to move file to trash");
       }
     } catch (error) {
-      console.error('Error moving file to trash:', error);
-      toast.error('Error moving file to trash');
+      console.error("Error moving file to trash:", error);
+      toast.error("Error moving file to trash");
     }
   };
 
   const handleShareFile = async (fileId: string) => {
     try {
-      const email = prompt('Enter email address to share with:');
+      const email = prompt("Enter email address to share with:");
       if (email) {
         const response = await apiService.shareFile(fileId, email);
         if (response.success) {
-          toast.success('File shared successfully');
+          toast.success("File shared successfully");
         } else {
-          toast.error('Failed to share file');
+          toast.error("Failed to share file");
         }
       }
     } catch (error) {
-      console.error('Error sharing file:', error);
-      toast.error('Error sharing file');
+      console.error("Error sharing file:", error);
+      toast.error("Error sharing file");
     }
   };
 
   const handleDragStart = (e: React.DragEvent, fileId: string) => {
-    e.dataTransfer.setData('text/plain', fileId);
+    e.dataTransfer.setData("text/plain", fileId);
   };
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-panel"></div>
       </div>
     );
   }
@@ -172,7 +200,6 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
         <Table>
           <TableHeader>
             <TableRow>
-             
               <TableHead>Name</TableHead>
               <TableHead>Owner</TableHead>
               <TableHead>Last Modified</TableHead>
@@ -184,7 +211,6 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
           <TableBody>
             {filteredFiles.map((file) => (
               <TableRow key={file.id} className="hover:bg-muted/50">
-                
                 <TableCell>
                   <div
                     className="flex items-center gap-2 cursor-move"
@@ -193,12 +219,20 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
                   >
                     {getFileIcon(file.type)}
                     <span className="font-medium">{file.name}</span>
-                    {file.starred && <Star className="w-4 h-4 text-yellow-500 fill-current" />}
+                    {file.starred && (
+                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                    )}
                   </div>
                 </TableCell>
-                <TableCell className="text-muted-foreground">{file.owner}</TableCell>
-                <TableCell className="text-muted-foreground">{file.lastModified}</TableCell>
-                <TableCell className="text-muted-foreground">{file.size}</TableCell>
+                <TableCell className="text-muted-foreground">
+                  {file.owner}
+                </TableCell>
+                <TableCell className="text-muted-foreground">
+                  {file.lastModified}
+                </TableCell>
+                <TableCell className="text-muted-foreground">
+                  {file.size}
+                </TableCell>
                 <TableCell>
                   <div className="flex gap-1">
                     {file.shared && <Badge variant="secondary">Shared</Badge>}
@@ -217,28 +251,43 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
                     </Button>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0"
+                        >
                           <MoreHorizontal className="w-4 h-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-48 bg-popover border border-border">
-                        <DropdownMenuItem onClick={() => handleStarFile(file.id)}>
+                      <DropdownMenuContent
+                        align="end"
+                        className="w-48 bg-popover border border-border"
+                      >
+                        <DropdownMenuItem
+                          onClick={() => handleStarFile(file.id)}
+                        >
                           <Star className="w-4 h-4 mr-2" />
-                          {file.starred ? 'Unstar' : 'Star'}
+                          {file.starred ? "Unstar" : "Star"}
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleDownloadFile(file.id, file.name)}>
+                        <DropdownMenuItem
+                          onClick={() => handleDownloadFile(file.id, file.name)}
+                        >
                           <Download className="w-4 h-4 mr-2" />
                           Download
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleMoveFile(file.id, file.name)}>
+                        <DropdownMenuItem
+                          onClick={() => handleMoveFile(file.id, file.name)}
+                        >
                           <ArrowRightLeft className="w-4 h-4 mr-2" />
                           Move
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleShareFile(file.id)}>
+                        <DropdownMenuItem
+                          onClick={() => handleShareFile(file.id)}
+                        >
                           <Share2 className="w-4 h-4 mr-2" />
                           Share
                         </DropdownMenuItem>
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                           onClick={() => handleTrashFile(file.id)}
                           className="text-destructive focus:text-destructive"
                         >
@@ -266,7 +315,7 @@ export default function EnhancedFileList({ searchQuery }: EnhancedFileListProps)
           fileName={selectedFileForMove.name}
           onFileMoved={() => {
             loadFiles();
-            window.dispatchEvent(new CustomEvent('filesMoved'));
+            window.dispatchEvent(new CustomEvent("filesMoved"));
           }}
         />
       )}

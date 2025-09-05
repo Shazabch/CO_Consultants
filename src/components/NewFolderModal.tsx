@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,7 +19,12 @@ interface NewFolderModalProps {
   currentPath: string;
 }
 
-export default function NewFolderModal({ isOpen, onClose, onFolderCreated, currentPath }: NewFolderModalProps) {
+export default function NewFolderModal({
+  isOpen,
+  onClose,
+  onFolderCreated,
+  currentPath,
+}: NewFolderModalProps) {
   const [folderName, setFolderName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
 
@@ -24,16 +35,16 @@ export default function NewFolderModal({ isOpen, onClose, onFolderCreated, curre
     }
 
     setIsCreating(true);
-    
+
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     onFolderCreated(folderName.trim());
     toast.success(`Folder "${folderName}" created successfully!`);
-    
+
     // Trigger sidebar refresh
-    window.dispatchEvent(new CustomEvent('folderCreated'));
-    
+    window.dispatchEvent(new CustomEvent("folderCreated"));
+
     setFolderName("");
     setIsCreating(false);
     onClose();
@@ -49,11 +60,11 @@ export default function NewFolderModal({ isOpen, onClose, onFolderCreated, curre
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Folder className="h-5 w-5 text-brand" />
+            <Folder className="h-5 w-5 text-panel" />
             Create New Folder
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4 py-4">
           <div className="space-y-2">
             <Label htmlFor="folder-name">Folder Name</Label>
@@ -62,11 +73,11 @@ export default function NewFolderModal({ isOpen, onClose, onFolderCreated, curre
               placeholder="Enter folder name..."
               value={folderName}
               onChange={(e) => setFolderName(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleCreate()}
+              onKeyDown={(e) => e.key === "Enter" && handleCreate()}
               autoFocus
             />
           </div>
-          
+
           <div className="text-sm text-muted-foreground">
             <p>Location: {currentPath}</p>
           </div>
@@ -76,7 +87,10 @@ export default function NewFolderModal({ isOpen, onClose, onFolderCreated, curre
           <Button variant="outline" onClick={handleClose} disabled={isCreating}>
             Cancel
           </Button>
-          <Button onClick={handleCreate} disabled={!folderName.trim() || isCreating}>
+          <Button
+            onClick={handleCreate}
+            disabled={!folderName.trim() || isCreating}
+          >
             {isCreating ? "Creating..." : "Create Folder"}
           </Button>
         </DialogFooter>
